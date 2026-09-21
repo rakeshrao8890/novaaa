@@ -1,0 +1,3052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NOVE | Dashboard</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --red:#ff1744;
+  --red2:#ff4668;
+  --red3:#85001f;
+
+  --bg:#050507;
+  --card:rgba(20,20,24,.78);
+  --card2:rgba(13,13,17,.88);
+
+  --white:#fff;
+  --text:#f5f5f7;
+  --muted:#85858e;
+  --muted2:#5f6069;
+
+  --green:#39df88;
+
+  --line:rgba(255,255,255,.09);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 50% -15%,
+      rgba(255,23,68,.22),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      rgba(255,23,68,.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 0% 80%,
+      rgba(90,0,30,.14),
+      transparent 35%
+    ),
+    #050507;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255,255,255,.025) 45%,
+      transparent 50%
+    );
+
+  opacity:.35;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font-family:inherit;
+}
+
+/* ================================
+   BACKGROUND
+================================ */
+
+.background-grid{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size:48px 48px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 90%
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 90%
+    );
+}
+
+.bg-orb{
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(90px);
+  z-index:-1;
+}
+
+.bg-orb.one{
+  width:340px;
+  height:340px;
+  top:-190px;
+  right:-100px;
+
+  background:
+    rgba(255,23,68,.20);
+
+  animation:
+    orbOne 10s ease-in-out infinite;
+}
+
+.bg-orb.two{
+  width:280px;
+  height:280px;
+  left:-170px;
+  bottom:-80px;
+
+  background:
+    rgba(130,0,35,.15);
+
+  animation:
+    orbTwo 12s ease-in-out infinite;
+}
+
+@keyframes orbOne{
+  0%,100%{
+    transform:translate(0,0);
+  }
+
+  50%{
+    transform:translate(-40px,50px);
+  }
+}
+
+@keyframes orbTwo{
+  0%,100%{
+    transform:translate(0,0);
+  }
+
+  50%{
+    transform:translate(45px,-40px);
+  }
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  height:76px;
+
+  padding:0 26px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:
+    rgba(5,5,7,.72);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.07);
+
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+
+  animation:
+    headerIn .55s ease both;
+}
+
+@keyframes headerIn{
+  from{
+    opacity:0;
+    transform:translateY(-15px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+/* ================================
+   PREMIUM LOGO
+================================ */
+
+.brand-logo{
+  position:relative;
+
+  width:46px;
+  height:46px;
+
+  flex:0 0 46px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ff6d87,
+      #ff1744 45%,
+      #680019
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.25);
+
+  box-shadow:
+    0 0 0 5px rgba(255,23,68,.045),
+    0 10px 32px rgba(255,23,68,.30),
+    inset 0 1px 1px rgba(255,255,255,.35);
+
+  overflow:hidden;
+
+  animation:
+    logoFloat 4s ease-in-out infinite;
+}
+
+.brand-logo::after{
+  content:"";
+
+  position:absolute;
+
+  width:130%;
+  height:45%;
+
+  left:-15%;
+  top:-10%;
+
+  background:
+    rgba(255,255,255,.16);
+
+  filter:blur(8px);
+
+  transform:rotate(-25deg);
+}
+
+.brand-logo img{
+  position:relative;
+  z-index:3;
+
+  width:82%;
+  height:82%;
+
+  object-fit:contain;
+
+  border-radius:50%;
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(255,255,255,.35)
+    );
+}
+
+.brand-letter{
+  position:relative;
+  z-index:4;
+
+  color:white;
+
+  font-size:21px;
+  font-weight:950;
+}
+
+@keyframes logoFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-3px);
+  }
+}
+
+.brand-info h2{
+  color:white;
+
+  font-size:20px;
+  font-weight:950;
+
+  letter-spacing:3px;
+}
+
+.brand-info p{
+  margin-top:3px;
+
+  color:#686870;
+
+  font-size:8px;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+/* ================================
+   LOGOUT
+================================ */
+
+.logout-btn{
+  height:40px;
+
+  padding:0 15px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+
+  border-radius:13px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.10);
+
+  background:
+    rgba(255,255,255,.045);
+
+  color:#d6d6da;
+
+  font-size:10px;
+  font-weight:850;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+}
+
+.logout-btn:hover{
+  color:white;
+
+  background:
+    rgba(255,23,68,.13);
+
+  border-color:
+    rgba(255,23,68,.35);
+
+  box-shadow:
+    0 8px 25px
+    rgba(255,23,68,.10);
+
+  transform:translateY(-2px);
+}
+
+.logout-btn:active{
+  transform:scale(.95);
+}
+
+/* ================================
+   MAIN
+================================ */
+
+.container{
+  width:min(100%,1080px);
+
+  margin:auto;
+
+  padding:
+    28px 22px 75px;
+}
+
+/* ================================
+   WELCOME HERO
+================================ */
+
+.welcome{
+  position:relative;
+  overflow:hidden;
+
+  min-height:180px;
+
+  margin-bottom:17px;
+  padding:28px;
+
+  border-radius:27px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.085);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(30,30,35,.90),
+      rgba(10,10,13,.80)
+    );
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.05);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  animation:
+    fadeUp .65s ease .05s both;
+}
+
+.welcome::before{
+  content:"";
+
+  position:absolute;
+
+  width:360px;
+  height:360px;
+
+  right:-190px;
+  top:-210px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,23,68,.18);
+
+  filter:blur(5px);
+}
+
+.welcome::after{
+  content:"N";
+
+  position:absolute;
+
+  right:28px;
+  bottom:-65px;
+
+  color:
+    rgba(255,255,255,.025);
+
+  font-size:210px;
+  line-height:1;
+
+  font-weight:950;
+}
+
+.welcome-content{
+  position:relative;
+  z-index:3;
+}
+
+.welcome-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  margin-bottom:10px;
+
+  color:#ff607d;
+
+  font-size:8px;
+  font-weight:900;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.welcome-label::before{
+  content:"";
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:var(--red);
+
+  box-shadow:
+    0 0 15px
+    rgba(255,23,68,.95);
+
+  animation:
+    statusPulse 1.8s infinite;
+}
+
+.welcome h1{
+  max-width:650px;
+
+  color:white;
+
+  font-size:31px;
+  line-height:1.15;
+
+  font-weight:900;
+
+  letter-spacing:-1px;
+
+  margin-bottom:10px;
+}
+
+.welcome h1 span{
+  color:var(--red);
+
+  text-shadow:
+    0 0 28px
+    rgba(255,23,68,.30);
+}
+
+.welcome p{
+  color:#797981;
+
+  font-size:10px;
+}
+
+.user-phone{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  margin-top:14px;
+
+  padding:8px 12px;
+
+  border-radius:11px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
+  color:#aaaab2;
+
+  font-size:9px;
+}
+
+/* ================================
+   ERROR
+================================ */
+
+.error{
+  display:none;
+
+  margin-bottom:15px;
+
+  padding:13px 15px;
+
+  border-radius:13px;
+
+  background:
+    rgba(255,23,68,.08);
+
+  border:
+    1px solid
+    rgba(255,23,68,.25);
+
+  color:#ff8198;
+
+  font-size:11px;
+}
+
+/* ================================
+   BALANCE
+================================ */
+
+.balance-card{
+  position:relative;
+  overflow:hidden;
+
+  min-height:235px;
+
+  margin-bottom:16px;
+  padding:30px;
+
+  border-radius:29px;
+
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(255,23,68,.30),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #09090b,
+      #18181d 50%,
+      #320610
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.10);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.05);
+
+  animation:
+    fadeUp .65s ease .12s both;
+}
+
+.balance-card::before{
+  content:"";
+
+  position:absolute;
+
+  width:430px;
+  height:430px;
+
+  right:-220px;
+  top:-270px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.09);
+
+  box-shadow:
+    0 0 0 30px rgba(255,255,255,.012),
+    0 0 0 75px rgba(255,255,255,.007);
+}
+
+.balance-card::after{
+  content:"";
+
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  right:-120px;
+  bottom:-190px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,23,68,.25);
+
+  filter:blur(30px);
+}
+
+.balance-shine{
+  position:absolute;
+
+  width:110px;
+  height:600px;
+
+  left:-200px;
+  top:-170px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.08),
+      transparent
+    );
+
+  transform:rotate(25deg);
+
+  animation:
+    balanceShine 5s ease-in-out infinite;
+}
+
+@keyframes balanceShine{
+  0%,35%{
+    left:-200px;
+  }
+
+  65%,100%{
+    left:120%;
+  }
+}
+
+.balance-content{
+  position:relative;
+  z-index:4;
+}
+
+.balance-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:22px;
+}
+
+.balance-label{
+  color:#aaaab2;
+
+  font-size:10px;
+  font-weight:750;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+}
+
+.balance-status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  padding:7px 11px;
+
+  border-radius:30px;
+
+  background:
+    rgba(59,225,138,.07);
+
+  border:
+    1px solid
+    rgba(59,225,138,.15);
+
+  color:#8ff1b8;
+
+  font-size:8px;
+  font-weight:850;
+}
+
+.status-dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:
+    0 0 11px
+    rgba(59,225,138,.95);
+
+  animation:
+    statusPulse 1.8s infinite;
+}
+
+@keyframes statusPulse{
+  0%,100%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  50%{
+    opacity:.45;
+    transform:scale(.65);
+  }
+}
+
+.balance{
+  color:white;
+
+  font-size:48px;
+  line-height:1;
+
+  font-weight:950;
+
+  letter-spacing:-2px;
+
+  text-shadow:
+    0 10px 35px
+    rgba(0,0,0,.45);
+
+  animation:
+    balanceIn .75s ease .25s both;
+}
+
+@keyframes balanceIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.balance-caption{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  margin-top:16px;
+
+  color:#71717a;
+
+  font-size:9px;
+}
+
+.balance-caption::before{
+  content:"";
+
+  width:28px;
+  height:2px;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--red),
+      transparent
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(255,23,68,.7);
+}
+
+/* ================================
+   STATS
+================================ */
+
+.stats{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:15px;
+
+  margin-bottom:34px;
+}
+
+.stat-card{
+  position:relative;
+  overflow:hidden;
+
+  min-height:145px;
+
+  padding:20px;
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(26,26,31,.92),
+      rgba(10,10,13,.86)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.075);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.25);
+
+  transition:.3s ease;
+
+  animation:
+    fadeUp .65s ease .18s both;
+}
+
+.stat-card:nth-child(2){
+  animation-delay:.23s;
+}
+
+.stat-card::before{
+  content:"";
+
+  position:absolute;
+
+  width:150px;
+  height:150px;
+
+  right:-75px;
+  bottom:-90px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,23,68,.07);
+}
+
+.stat-card:hover{
+  transform:translateY(-5px);
+
+  border-color:
+    rgba(255,23,68,.28);
+
+  box-shadow:
+    0 25px 55px rgba(0,0,0,.32);
+}
+
+.stat-icon{
+  position:relative;
+  z-index:2;
+
+  width:43px;
+  height:43px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:14px;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,23,68,.16),
+      rgba(255,23,68,.035)
+    );
+
+  border:
+    1px solid
+    rgba(255,23,68,.15);
+
+  color:#ff6682;
+
+  font-size:18px;
+}
+
+.stat-card:nth-child(2) .stat-icon{
+  background:
+    rgba(255,255,255,.045);
+
+  border-color:
+    rgba(255,255,255,.08);
+
+  color:#dedee3;
+}
+
+.stat-card h4{
+  position:relative;
+  z-index:2;
+
+  margin-bottom:6px;
+
+  color:#707079;
+
+  font-size:8px;
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.8px;
+}
+
+.stat-card p{
+  position:relative;
+  z-index:2;
+
+  color:#f5f5f7;
+
+  font-size:22px;
+
+  font-weight:900;
+
+  letter-spacing:-.5px;
+}
+
+/* ================================
+   SECTION
+================================ */
+
+.section-heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+
+  margin:
+    0 2px 15px;
+
+  animation:
+    fadeUp .65s ease .28s both;
+}
+
+.section-title{
+  color:white;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  letter-spacing:-.4px;
+}
+
+.section-subtitle{
+  margin-top:5px;
+
+  color:#66666f;
+
+  font-size:9px;
+}
+
+.section-line{
+  width:70px;
+  height:2px;
+
+  margin-bottom:6px;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--red)
+    );
+
+  box-shadow:
+    0 0 13px
+    rgba(255,23,68,.6);
+}
+
+/* ================================
+   QUICK ACTIONS
+================================ */
+
+.actions{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:15px;
+}
+
+.action{
+  position:relative;
+  overflow:hidden;
+
+  min-height:155px;
+
+  padding:20px 12px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  border-radius:23px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,25,30,.94),
+      rgba(10,10,13,.90)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.075);
+
+  box-shadow:
+    0 17px 40px rgba(0,0,0,.23);
+
+  transition:
+    transform .28s ease,
+    border-color .28s ease,
+    box-shadow .28s ease;
+
+  animation:
+    fadeUp .65s ease both;
+}
+
+.action:nth-child(1){animation-delay:.32s}
+.action:nth-child(2){animation-delay:.36s}
+.action:nth-child(3){animation-delay:.40s}
+.action:nth-child(4){animation-delay:.44s}
+.action:nth-child(5){animation-delay:.48s}
+.action:nth-child(6){animation-delay:.52s}
+
+.action::before{
+  content:"";
+
+  position:absolute;
+
+  width:170px;
+  height:170px;
+
+  right:-95px;
+  bottom:-100px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,23,68,.055);
+
+  transition:.4s ease;
+}
+
+.action::after{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:50%;
+
+  width:0;
+  height:2px;
+
+  transform:translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--red),
+      transparent
+    );
+
+  transition:.4s ease;
+}
+
+.action:hover{
+  transform:translateY(-7px);
+
+  border-color:
+    rgba(255,23,68,.32);
+
+  box-shadow:
+    0 27px 55px rgba(0,0,0,.34),
+    0 0 30px rgba(255,23,68,.055);
+}
+
+.action:hover::before{
+  transform:scale(1.5);
+}
+
+.action:hover::after{
+  width:100%;
+}
+
+.action:active{
+  transform:scale(.96);
+}
+
+.action-icon{
+  position:relative;
+  z-index:2;
+
+  width:58px;
+  height:58px;
+
+  margin-bottom:13px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,23,68,.17),
+      rgba(255,23,68,.035)
+    );
+
+  border:
+    1px solid
+    rgba(255,23,68,.14);
+
+  font-size:24px;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.06);
+
+  transition:.3s ease;
+}
+
+.action:hover .action-icon{
+  transform:
+    translateY(-4px)
+    scale(1.08);
+
+  box-shadow:
+    0 12px 32px
+    rgba(255,23,68,.18);
+}
+
+.action-name{
+  position:relative;
+  z-index:2;
+
+  color:#eeeeef;
+
+  font-size:12px;
+
+  font-weight:850;
+}
+
+.action-hint{
+  position:relative;
+  z-index:2;
+
+  margin-top:5px;
+
+  color:#5f5f68;
+
+  font-size:8px;
+}
+
+/* ================================
+   POPUP OVERLAY
+================================ */
+
+.nove-popup-overlay{
+  position:fixed;
+  inset:0;
+
+  z-index:9999;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:18px;
+
+  background:
+    rgba(0,0,0,.84);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  opacity:0;
+}
+
+.nove-popup-overlay.show{
+  display:flex;
+
+  animation:
+    popupOverlayIn .3s ease forwards;
+}
+
+@keyframes popupOverlayIn{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+/* ================================
+   POPUP
+================================ */
+
+.nove-popup{
+  position:relative;
+  overflow:hidden;
+
+  width:min(100%,410px);
+
+  padding:
+    31px 22px 22px;
+
+  border-radius:29px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(31,31,37,.97),
+      rgba(8,8,11,.98) 62%,
+      rgba(45,0,12,.98)
+    );
+
+  box-shadow:
+    0 45px 120px rgba(0,0,0,.80),
+    0 0 70px rgba(255,23,68,.14),
+    inset 0 1px 0 rgba(255,255,255,.07);
+
+  text-align:center;
+
+  transform:
+    translateY(35px)
+    scale(.93);
+
+  animation:
+    popupIn .45s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes popupIn{
+  to{
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+.nove-popup::before{
+  content:"";
+
+  position:absolute;
+
+  width:250px;
+  height:250px;
+
+  right:-120px;
+  top:-160px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,23,68,.20);
+
+  filter:blur(12px);
+}
+
+.nove-popup::after{
+  content:"";
+
+  position:absolute;
+
+  width:190px;
+  height:190px;
+
+  left:-100px;
+  bottom:-130px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,23,68,.09);
+
+  filter:blur(18px);
+}
+
+/* ================================
+   POPUP CLOSE
+================================ */
+
+.nove-popup-close-x{
+  position:absolute;
+
+  top:13px;
+  right:14px;
+
+  z-index:10;
+
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(255,255,255,.10);
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:#c5c5ca;
+
+  font-size:19px;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+}
+
+.nove-popup-close-x:hover{
+  color:white;
+
+  background:
+    rgba(255,23,68,.16);
+
+  border-color:
+    rgba(255,23,68,.35);
+
+  transform:rotate(90deg);
+}
+
+/* ================================
+   POPUP REAL LOGO
+================================ */
+
+.nove-popup-logo{
+  position:relative;
+  z-index:5;
+
+  width:78px;
+  height:78px;
+
+  margin:
+    0 auto 14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ff6d87,
+      #ff1744 45%,
+      #75001d
+    );
+
+  border:
+    2px solid
+    rgba(255,255,255,.22);
+
+  box-shadow:
+    0 0 0 6px rgba(255,23,68,.045),
+    0 18px 50px
+    rgba(255,23,68,.38),
+    inset 0 1px 2px
+    rgba(255,255,255,.30);
+
+  overflow:hidden;
+
+  animation:
+    popupLogoPulse 2.5s ease-in-out infinite;
+}
+
+.nove-popup-logo::before{
+  content:"";
+
+  position:absolute;
+
+  width:130%;
+  height:45%;
+
+  top:-5%;
+  left:-15%;
+
+  background:
+    rgba(255,255,255,.17);
+
+  filter:blur(8px);
+
+  transform:rotate(-25deg);
+}
+
+.nove-popup-logo img{
+  position:relative;
+  z-index:3;
+
+  width:82%;
+  height:82%;
+
+  object-fit:contain;
+
+  border-radius:50%;
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(255,255,255,.38)
+    );
+}
+
+.popup-logo-letter{
+  position:relative;
+  z-index:4;
+
+  color:white;
+
+  font-size:31px;
+
+  font-weight:950;
+}
+
+@keyframes popupLogoPulse{
+  0%,100%{
+    transform:scale(1);
+
+    box-shadow:
+      0 0 0 6px rgba(255,23,68,.045),
+      0 18px 50px rgba(255,23,68,.34),
+      inset 0 1px 2px rgba(255,255,255,.30);
+  }
+
+  50%{
+    transform:scale(1.035);
+
+    box-shadow:
+      0 0 0 10px rgba(255,23,68,.025),
+      0 20px 58px rgba(255,23,68,.48),
+      inset 0 1px 2px rgba(255,255,255,.30);
+  }
+}
+
+/* ================================
+   POPUP TITLE
+================================ */
+
+.nove-popup h2{
+  position:relative;
+  z-index:3;
+
+  margin-bottom:5px;
+
+  color:white;
+
+  font-size:26px;
+
+  font-weight:950;
+
+  letter-spacing:4px;
+
+  text-shadow:
+    0 4px 25px
+    rgba(255,255,255,.10);
+}
+
+.nove-popup-subtitle{
+  position:relative;
+  z-index:3;
+
+  margin-bottom:19px;
+
+  color:#85858e;
+
+  font-size:9px;
+
+  letter-spacing:1px;
+}
+
+/* ================================
+   POPUP INFO
+================================ */
+
+.nove-popup-info{
+  position:relative;
+  z-index:3;
+
+  padding:
+    4px 0 7px;
+
+  text-align:left;
+}
+
+.nove-info-row{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  min-height:45px;
+
+  padding:9px 12px;
+
+  margin-bottom:8px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.065);
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.025)
+    );
+
+  color:#eeeeef;
+
+  font-size:11px;
+
+  font-weight:600;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.025);
+
+  transition:.2s ease;
+}
+
+.nove-info-row:hover{
+  border-color:
+    rgba(255,23,68,.27);
+
+  background:
+    rgba(255,23,68,.055);
+
+  transform:
+    translateX(2px);
+}
+
+.nove-info-icon{
+  width:31px;
+  height:31px;
+
+  flex:0 0 31px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:
+    rgba(255,23,68,.11);
+
+  border:
+    1px solid
+    rgba(255,23,68,.08);
+
+  font-size:15px;
+}
+
+.nove-info-text{
+  flex:1;
+}
+
+.nove-info-text b{
+  color:white;
+
+  font-weight:850;
+}
+
+/* ================================
+   TELEGRAM
+================================ */
+
+.telegram-btn{
+  position:relative;
+  z-index:3;
+
+  width:100%;
+  min-height:53px;
+
+  margin-top:9px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff3157,
+      #d90035
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  color:white;
+
+  font-size:12px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 15px 35px
+    rgba(255,23,68,.25);
+
+  cursor:pointer;
+
+  transition:.22s ease;
+}
+
+.telegram-btn:hover{
+  transform:translateY(-2px);
+
+  filter:brightness(1.08);
+
+  box-shadow:
+    0 18px 45px
+    rgba(255,23,68,.38);
+}
+
+.telegram-btn:active{
+  transform:scale(.97);
+}
+
+.telegram-icon{
+  font-size:17px;
+}
+
+/* ================================
+   CONTINUE
+================================ */
+
+.nove-popup-continue{
+  position:relative;
+  z-index:3;
+
+  width:100%;
+  min-height:47px;
+
+  margin-top:10px;
+
+  border-radius:15px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.09);
+
+  background:
+    rgba(255,255,255,.045);
+
+  color:#d5d5d9;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+}
+
+.nove-popup-continue:hover{
+  color:white;
+
+  background:
+    rgba(255,255,255,.075);
+
+  border-color:
+    rgba(255,255,255,.14);
+}
+
+.nove-popup-note{
+  position:relative;
+  z-index:3;
+
+  margin-top:13px;
+
+  color:#62626a;
+
+  font-size:8px;
+}
+
+/* ================================
+   ANIMATION
+================================ */
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* ================================
+   TABLET
+================================ */
+
+@media(max-width:800px){
+
+  .actions{
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .action{
+    min-height:138px;
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:700px){
+
+  .header{
+    height:65px;
+
+    padding:
+      0 14px;
+  }
+
+  .brand{
+    gap:9px;
+  }
+
+  .brand-logo{
+    width:39px;
+    height:39px;
+    flex-basis:39px;
+  }
+
+  .brand-info h2{
+    font-size:17px;
+    letter-spacing:2px;
+  }
+
+  .brand-info p{
+    display:none;
+  }
+
+  .logout-btn{
+    height:36px;
+
+    padding:
+      0 11px;
+
+    font-size:9px;
+  }
+
+  .container{
+    padding:
+      17px 13px 45px;
+  }
+
+  .welcome{
+    min-height:153px;
+
+    padding:21px;
+
+    border-radius:22px;
+  }
+
+  .welcome h1{
+    font-size:23px;
+  }
+
+  .welcome p{
+    font-size:9px;
+  }
+
+  .welcome::after{
+    font-size:125px;
+    right:15px;
+  }
+
+  .balance-card{
+    min-height:190px;
+
+    padding:22px;
+
+    border-radius:23px;
+  }
+
+  .balance{
+    font-size:35px;
+  }
+
+  .balance-label{
+    font-size:9px;
+  }
+
+  .balance-status{
+    padding:
+      6px 8px;
+
+    font-size:7px;
+  }
+
+  .stats{
+    gap:10px;
+
+    margin-bottom:27px;
+  }
+
+  .stat-card{
+    min-height:128px;
+
+    padding:16px;
+
+    border-radius:19px;
+  }
+
+  .stat-icon{
+    width:38px;
+    height:38px;
+
+    margin-bottom:10px;
+  }
+
+  .stat-card p{
+    font-size:17px;
+  }
+
+  .actions{
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap:10px;
+  }
+
+  .action{
+    min-height:126px;
+
+    border-radius:19px;
+  }
+
+  .action-icon{
+    width:50px;
+    height:50px;
+
+    border-radius:15px;
+
+    font-size:21px;
+  }
+
+  .action-hint{
+    display:none;
+  }
+
+  .section-title{
+    font-size:18px;
+  }
+
+  /* POPUP */
+
+  .nove-popup-overlay{
+    padding:13px;
+  }
+
+  .nove-popup{
+    width:100%;
+
+    padding:
+      27px 16px 18px;
+
+    border-radius:25px;
+
+    max-height:
+      calc(100vh - 26px);
+
+    overflow-y:auto;
+  }
+
+  .nove-popup-logo{
+    width:62px;
+    height:62px;
+
+    margin-bottom:10px;
+  }
+
+  .popup-logo-letter{
+    font-size:25px;
+  }
+
+  .nove-popup h2{
+    font-size:22px;
+  }
+
+  .nove-popup-subtitle{
+    margin-bottom:14px;
+  }
+
+  .nove-info-row{
+    min-height:41px;
+
+    padding:
+      7px 9px;
+
+    margin-bottom:6px;
+
+    font-size:10px;
+  }
+
+  .nove-info-icon{
+    width:28px;
+    height:28px;
+
+    flex-basis:28px;
+
+    font-size:14px;
+  }
+
+  .telegram-btn{
+    min-height:49px;
+
+    font-size:11px;
+  }
+}
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media(max-width:380px){
+
+  .welcome h1{
+    font-size:20px;
+  }
+
+  .balance{
+    font-size:30px;
+  }
+
+  .stat-card p{
+    font-size:15px;
+  }
+
+  .action{
+    min-height:116px;
+  }
+
+  .action-icon{
+    width:46px;
+    height:46px;
+
+    font-size:20px;
+  }
+
+  .nove-popup{
+    padding-top:23px;
+  }
+
+  .nove-popup h2{
+    font-size:20px;
+  }
+
+  .nove-info-row{
+    font-size:9px;
+  }
+}
+
+/* ================================
+   REDUCED MOTION
+================================ */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-grid"></div>
+
+<div class="bg-orb one"></div>
+<div class="bg-orb two"></div>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+  <div class="brand">
+
+    <div class="brand-logo">
+
+      <img
+        src="assets/logo.png"
+        alt="NOVE"
+        onerror="this.style.display='none';this.parentElement.innerHTML='<span class=&quot;brand-letter&quot;>N</span>';"
+      >
+
+    </div>
+
+    <div class="brand-info">
+
+      <h2>NOVE</h2>
+
+      <p>
+        Premium Dashboard
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <button
+    class="logout-btn"
+    id="logoutBtn">
+
+    <span>↪</span>
+
+    <span>Logout</span>
+
+  </button>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+
+  <!-- WELCOME -->
+
+  <section class="welcome">
+
+    <div class="welcome-content">
+
+      <div class="welcome-label">
+        YOUR ACCOUNT
+      </div>
+
+      <h1>
+        Welcome back,
+        <span id="userName">
+          User
+        </span>
+        👋
+      </h1>
+
+      <p>
+        Manage your NOVE account from one place.
+      </p>
+
+      <div class="user-phone">
+
+        <span>📱</span>
+
+        <span id="userPhone">
+          Loading...
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ERROR -->
+
+  <div
+    class="error"
+    id="errorMessage">
+  </div>
+
+
+  <!-- BALANCE -->
+
+  <section class="balance-card">
+
+    <div class="balance-shine"></div>
+
+    <div class="balance-content">
+
+      <div class="balance-top">
+
+        <div class="balance-label">
+          Available Balance
+        </div>
+
+        <div class="balance-status">
+
+          <span class="status-dot"></span>
+
+          Account Active
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="balance"
+        id="availableBalance">
+
+        ₹0.00
+
+      </div>
+
+
+      <div class="balance-caption">
+        Current wallet balance
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATS -->
+
+  <section class="stats">
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ↙
+      </div>
+
+      <h4>
+        Total Deposit
+      </h4>
+
+      <p id="totalDeposit">
+        ₹0.00
+      </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ↗
+      </div>
+
+      <h4>
+        Total Withdrawal
+      </h4>
+
+      <p id="totalWithdrawal">
+        ₹0.00
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- QUICK ACTIONS -->
+
+  <div class="section-heading">
+
+    <div>
+
+      <div class="section-title">
+        Quick Actions
+      </div>
+
+      <div class="section-subtitle">
+        Access your account features
+      </div>
+
+    </div>
+
+    <div class="section-line"></div>
+
+  </div>
+
+
+  <section class="actions">
+
+
+    <!-- PLANS -->
+
+    <a
+      href="plans.html"
+      class="action">
+
+      <div class="action-icon">
+        📊
+      </div>
+
+      <div class="action-name">
+        Plans
+      </div>
+
+      <div class="action-hint">
+        Explore plans
+      </div>
+
+    </a>
+
+
+    <!-- DEPOSIT -->
+
+    <a
+      href="deposit.html"
+      class="action">
+
+      <div class="action-icon">
+        💳
+      </div>
+
+      <div class="action-name">
+        Deposit
+      </div>
+
+      <div class="action-hint">
+        Add funds
+      </div>
+
+    </a>
+
+
+    <!-- WITHDRAW -->
+
+    <a
+      href="withdraw.html"
+      class="action">
+
+      <div class="action-icon">
+        💸
+      </div>
+
+      <div class="action-name">
+        Withdraw
+      </div>
+
+      <div class="action-hint">
+        Withdraw funds
+      </div>
+
+    </a>
+
+
+    <!-- REFERRAL -->
+
+    <a
+      href="refer.html"
+      class="action">
+
+      <div class="action-icon">
+        🔗
+      </div>
+
+      <div class="action-name">
+        Referral
+      </div>
+
+      <div class="action-hint">
+        Invite friends
+      </div>
+
+    </a>
+
+
+    <!-- ORDERS -->
+
+    <a
+      href="orders.html"
+      class="action">
+
+      <div class="action-icon">
+        🧾
+      </div>
+
+      <div class="action-name">
+        Records
+      </div>
+
+      <div class="action-hint">
+        View activity
+      </div>
+
+    </a>
+
+
+    <!-- PROFILE -->
+
+    <a
+      href="profile.html"
+      class="action">
+
+      <div class="action-icon">
+        👤
+      </div>
+
+      <div class="action-name">
+        Profile
+      </div>
+
+      <div class="action-hint">
+        Account settings
+      </div>
+
+    </a>
+
+  </section>
+
+</main>
+
+
+<!-- NOVE POPUP -->
+
+<div
+  class="nove-popup-overlay"
+  id="novePopup"
+  role="dialog"
+  aria-modal="true"
+  aria-label="NOVA information">
+
+
+  <div class="nove-popup">
+
+
+    <!-- CLOSE -->
+
+    <button
+      type="button"
+      class="nove-popup-close-x"
+      id="novePopupCloseX"
+      aria-label="Close popup">
+
+      ×
+
+    </button>
+
+
+    <!-- REAL LOGO -->
+
+    <div class="nove-popup-logo">
+
+      <img
+        src="assets/logo.png"
+        alt="NOVE Logo"
+        onerror="this.style.display='none';this.parentElement.innerHTML='<span class=&quot;popup-logo-letter&quot;>N</span>';"
+      >
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h2>
+      NOVA
+    </h2>
+
+
+    <div class="nove-popup-subtitle">
+      IMPORTANT ACCOUNT INFORMATION
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="nove-popup-info">
+
+
+      <div class="nove-info-row">
+
+        <div class="nove-info-icon">
+          👥
+        </div>
+
+        <div class="nove-info-text">
+
+          <b>Team work:</b>
+          35% / 3% / 1%
+
+        </div>
+
+      </div>
+
+
+      <div class="nove-info-row">
+
+        <div class="nove-info-icon">
+          💳
+        </div>
+
+        <div class="nove-info-text">
+
+          <b>Min withdrawal:</b>
+          ₹170
+
+        </div>
+
+      </div>
+
+
+      <div class="nove-info-row">
+
+        <div class="nove-info-icon">
+          💰
+        </div>
+
+        <div class="nove-info-text">
+
+          <b>Min Recharge:</b>
+          ₹295
+
+        </div>
+
+      </div>
+
+
+      <div class="nove-info-row">
+
+        <div class="nove-info-icon">
+          ⏰
+        </div>
+
+        <div class="nove-info-text">
+
+          <b>Withdrawal time:</b>
+          06:00 – 22:00
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- TELEGRAM -->
+
+    <a
+      class="telegram-btn"
+      id="telegramBtn"
+      href="https://t.me/nova_support56"
+      target="_blank"
+      rel="noopener noreferrer">
+
+      <span class="telegram-icon">
+        📲
+      </span>
+
+      <span>
+        Join Telegram 24/7 Support ✅
+      </span>
+
+    </a>
+
+
+    <!-- CONTINUE -->
+
+    <button
+      type="button"
+      class="nove-popup-continue"
+      id="novePopupContinue">
+
+      Continue to Dashboard
+
+    </button>
+
+
+    <div class="nove-popup-note">
+
+      Stay updated with official NOVE announcements.
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   MONEY FORMAT
+========================================= */
+
+function formatMoney(amount) {
+
+  const number =
+    Number(amount || 0);
+
+  return "₹" +
+    number.toLocaleString(
+      "en-IN",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }
+    );
+
+}
+
+
+/* =========================================
+   NOVE POPUP
+========================================= */
+
+function showNovePopup() {
+
+  const popup =
+    document.getElementById(
+      "novePopup"
+    );
+
+  if (!popup) {
+    return;
+  }
+
+  popup.classList.add("show");
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+function closeNovePopup() {
+
+  const popup =
+    document.getElementById(
+      "novePopup"
+    );
+
+  if (!popup) {
+    return;
+  }
+
+  popup.classList.remove("show");
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================================
+   POPUP BUTTONS
+========================================= */
+
+document
+  .getElementById(
+    "novePopupCloseX"
+  )
+  .addEventListener(
+    "click",
+    closeNovePopup
+  );
+
+
+document
+  .getElementById(
+    "novePopupContinue"
+  )
+  .addEventListener(
+    "click",
+    closeNovePopup
+  );
+
+
+/* CLICK OUTSIDE */
+
+document
+  .getElementById(
+    "novePopup"
+  )
+  .addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target ===
+        this
+      ) {
+
+        closeNovePopup();
+
+      }
+
+    }
+  );
+
+
+/* ESC */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      closeNovePopup();
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   LOAD HOME
+========================================= */
+
+async function loadHome() {
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/me",
+        {
+          credentials: "include",
+          cache: "no-store"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "ME API:",
+      data
+    );
+
+
+    /* USER */
+
+    if (data.user) {
+
+      document
+        .getElementById(
+          "userName"
+        )
+        .textContent =
+        data.user.name ||
+        "User";
+
+
+      document
+        .getElementById(
+          "userPhone"
+        )
+        .textContent =
+        data.user.phone ||
+        "";
+
+    }
+
+
+    /* BALANCE */
+
+    if (
+      data.balance !==
+      undefined
+    ) {
+
+      document
+        .getElementById(
+          "availableBalance"
+        )
+        .textContent =
+        formatMoney(
+          data.balance
+        );
+
+    }
+
+
+    /* WALLET */
+
+    try {
+
+      const walletResponse =
+        await fetch(
+          "/api/wallet",
+          {
+            credentials: "include",
+            cache: "no-store"
+          }
+        );
+
+
+      if (
+        walletResponse.ok
+      ) {
+
+        const walletData =
+          await walletResponse.json();
+
+
+        console.log(
+          "WALLET API:",
+          walletData
+        );
+
+
+        /* Wallet balance */
+
+        if (
+          walletData.balance !==
+          undefined
+        ) {
+
+          document
+            .getElementById(
+              "availableBalance"
+            )
+            .textContent =
+            formatMoney(
+              walletData.balance
+            );
+
+        }
+
+
+        /* Transactions */
+
+        if (
+          Array.isArray(
+            walletData.transactions
+          )
+        ) {
+
+          let totalDeposit = 0;
+
+          let totalWithdrawal = 0;
+
+
+          walletData.transactions
+            .forEach(
+              function(transaction) {
+
+                const amount =
+                  Number(
+                    transaction.amount ||
+                    0
+                  );
+
+
+                if (
+                  transaction.type ===
+                  "deposit"
+                ) {
+
+                  totalDeposit +=
+                    Math.abs(
+                      amount
+                    );
+
+                }
+
+
+                if (
+                  transaction.type ===
+                  "withdrawal"
+                ) {
+
+                  totalWithdrawal +=
+                    Math.abs(
+                      amount
+                    );
+
+                }
+
+              }
+            );
+
+
+          document
+            .getElementById(
+              "totalDeposit"
+            )
+            .textContent =
+            formatMoney(
+              totalDeposit
+            );
+
+
+          document
+            .getElementById(
+              "totalWithdrawal"
+            )
+            .textContent =
+            formatMoney(
+              totalWithdrawal
+            );
+
+        }
+
+      }
+
+    } catch (walletError) {
+
+      console.log(
+        "Wallet error:",
+        walletError
+      );
+
+    }
+
+
+    /* SHOW POPUP */
+
+    setTimeout(
+      function() {
+
+        showNovePopup();
+
+      },
+      450
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Home error:",
+      error
+    );
+
+
+    const errorMessage =
+      document.getElementById(
+        "errorMessage"
+      );
+
+
+    errorMessage.textContent =
+      "Unable to load account information.";
+
+
+    errorMessage.style.display =
+      "block";
+
+  }
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+document
+  .getElementById("logoutBtn")
+  .addEventListener(
+    "click",
+    async function() {
+
+      const button =
+        document.getElementById(
+          "logoutBtn"
+        );
+
+
+      button.disabled =
+        true;
+
+
+      button.innerHTML =
+        "<span>...</span><span>Logging out</span>";
+
+
+      try {
+
+        await fetch(
+          "/api/logout",
+          {
+            method: "POST",
+
+            credentials:
+              "include"
+          }
+        );
+
+      } catch (error) {
+
+        console.log(
+          "Logout error:",
+          error
+        );
+
+      }
+
+
+      window.location.href =
+        "login.html";
+
+    }
+  );
+
+
+/* =========================================
+   START
+========================================= */
+
+loadHome();
+
+</script>
+
+</body>
+</html>

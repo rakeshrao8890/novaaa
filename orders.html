@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVE - Orders</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #ff1744;
+      --red-dark: #c4002f;
+      --red-light: #ff4d6d;
+      --bg: #050505;
+      --card: rgba(18, 18, 20, 0.88);
+      --border: rgba(255, 255, 255, 0.08);
+      --muted: #8d8d98;
+      --green: #35e889;
+      --yellow: #ffc247;
+      --danger: #ff5964;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(
+          circle at 10% 0%,
+          rgba(255, 23, 68, 0.20),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(196, 0, 47, 0.12),
+          transparent 30%
+        ),
+        linear-gradient(
+          180deg,
+          #090909 0%,
+          #030303 100%
+        );
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,0.05) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.05) 1px,
+          transparent 1px
+        );
+      background-size: 35px 35px;
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 80%
+      );
+    }
+
+    .container {
+      width: 100%;
+      max-width: 620px;
+      margin: auto;
+      padding: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ================================
+       HEADER
+    ================================= */
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      animation: slideDown 0.5s ease;
+    }
+
+    .back {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #fff;
+      text-decoration: none;
+
+      font-size: 30px;
+      line-height: 1;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(14px);
+
+      transition: 0.25s ease;
+    }
+
+    .back:hover {
+      color: #fff;
+      border-color: rgba(255,23,68,0.55);
+      background: rgba(255,23,68,0.14);
+      transform: translateX(-3px);
+      box-shadow: 0 0 25px rgba(255,23,68,0.15);
+    }
+
+    .header-title {
+      flex: 1;
+    }
+
+    .header-title h1 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .header-title p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .header-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow:
+        0 0 10px var(--red),
+        0 0 20px rgba(255,23,68,0.6);
+      animation: pulse 1.8s infinite;
+    }
+
+    /* ================================
+       REFRESH BUTTON
+    ================================= */
+
+    .refresh {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 15px;
+
+      margin-bottom: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--red),
+          var(--red-dark)
+        );
+
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 30px rgba(255,23,68,0.20);
+
+      transition: 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .refresh::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+      );
+
+      transform: skewX(-20deg);
+      transition: 0.6s;
+    }
+
+    .refresh:hover::before {
+      left: 130%;
+    }
+
+    .refresh:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 14px 35px rgba(255,23,68,0.30);
+    }
+
+    .refresh:active {
+      transform: scale(0.98);
+    }
+
+    .refresh:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ================================
+       LOADING
+    ================================= */
+
+    .loading {
+      text-align: center;
+      color: var(--muted);
+      padding: 55px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(18px);
+    }
+
+    .loading-spinner {
+      width: 38px;
+      height: 38px;
+
+      margin: 0 auto 14px;
+
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.10);
+      border-top-color: var(--red);
+
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* ================================
+       EMPTY
+    ================================= */
+
+    .empty {
+      text-align: center;
+      padding: 48px 20px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.055),
+          rgba(255,255,255,0.018)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      box-shadow:
+        0 20px 50px rgba(0,0,0,0.35);
+
+      backdrop-filter: blur(18px);
+
+      animation: fadeUp 0.5s ease;
+    }
+
+    .empty-icon {
+      width: 72px;
+      height: 72px;
+
+      margin: 0 auto 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,23,68,0.18),
+          rgba(255,23,68,0.04)
+        );
+
+      border: 1px solid rgba(255,23,68,0.20);
+
+      font-size: 34px;
+
+      box-shadow:
+        0 0 35px rgba(255,23,68,0.10);
+    }
+
+    .empty-title {
+      color: #fff;
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .empty-text {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ================================
+       ORDER CARD
+    ================================= */
+
+    .order {
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(22,22,24,0.95),
+          rgba(10,10,11,0.94)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 21px;
+
+      padding: 18px;
+      margin-bottom: 15px;
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,0.30);
+
+      backdrop-filter: blur(18px);
+
+      animation: fadeUp 0.45s ease both;
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .order::before {
+      content: "";
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 4px;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--red),
+          var(--red-dark)
+        );
+
+      box-shadow:
+        0 0 18px rgba(255,23,68,0.45);
+    }
+
+    .order::after {
+      content: "";
+
+      position: absolute;
+
+      width: 130px;
+      height: 130px;
+
+      right: -65px;
+      top: -65px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,23,68,0.13),
+          transparent 70%
+        );
+
+      pointer-events: none;
+    }
+
+    .order:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,23,68,0.22);
+
+      box-shadow:
+        0 22px 55px rgba(0,0,0,0.42),
+        0 0 25px rgba(255,23,68,0.06);
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 16px;
+      padding-left: 4px;
+    }
+
+    .order-title {
+      font-size: 17px;
+      font-weight: 900;
+      color: #fff;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ================================
+       STATUS
+    ================================= */
+
+    .status {
+      flex-shrink: 0;
+
+      padding: 7px 11px;
+
+      border-radius: 999px;
+
+      font-size: 11px;
+      font-weight: 900;
+
+      text-transform: capitalize;
+
+      background: rgba(53,232,137,0.12);
+      border: 1px solid rgba(53,232,137,0.20);
+
+      color: var(--green);
+
+      box-shadow:
+        0 0 18px rgba(53,232,137,0.06);
+    }
+
+    .status.pending {
+      background: rgba(255,194,71,0.12);
+      border-color: rgba(255,194,71,0.20);
+      color: var(--yellow);
+    }
+
+    .status.failed {
+      background: rgba(255,89,100,0.12);
+      border-color: rgba(255,89,100,0.20);
+      color: var(--danger);
+    }
+
+    /* ================================
+       ROW
+    ================================= */
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      gap: 15px;
+
+      padding: 11px 4px;
+
+      border-bottom: 1px solid rgba(255,255,255,0.055);
+    }
+
+    .row:last-child {
+      border-bottom: none;
+      padding-bottom: 2px;
+    }
+
+    .label {
+      color: #777783;
+      font-size: 12px;
+      font-weight: 600;
+      min-width: 80px;
+    }
+
+    .value {
+      color: #f4f4f5;
+      font-size: 12px;
+      font-weight: 600;
+
+      text-align: right;
+
+      word-break: break-all;
+      max-width: 70%;
+    }
+
+    .amount {
+      font-size: 20px;
+      font-weight: 900;
+
+      color: var(--red-light);
+
+      text-shadow:
+        0 0 18px rgba(255,23,68,0.20);
+    }
+
+    /* ================================
+       ERROR
+    ================================= */
+
+    .error {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,89,100,0.12),
+          rgba(255,89,100,0.04)
+        );
+
+      border: 1px solid rgba(255,89,100,0.22);
+
+      color: #ff7c85;
+
+      padding: 18px;
+
+      border-radius: 18px;
+
+      text-align: center;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      animation: fadeUp 0.4s ease;
+    }
+
+    /* ================================
+       ANIMATIONS
+    ================================= */
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.35);
+        opacity: 0.65;
+      }
+    }
+
+    /* ================================
+       MOBILE
+    ================================= */
+
+    @media (max-width: 430px) {
+
+      .container {
+        padding: 15px;
+      }
+
+      .header {
+        margin-bottom: 18px;
+      }
+
+      .header-title h1 {
+        font-size: 21px;
+      }
+
+      .header-title p {
+        font-size: 11px;
+      }
+
+      .back {
+        width: 42px;
+        height: 42px;
+      }
+
+      .order {
+        padding: 16px;
+        border-radius: 19px;
+      }
+
+      .order-top {
+        align-items: flex-start;
+      }
+
+      .order-title {
+        font-size: 15px;
+        max-width: 58%;
+      }
+
+      .status {
+        font-size: 10px;
+        padding: 6px 9px;
+      }
+
+      .row {
+        gap: 10px;
+      }
+
+      .value {
+        max-width: 65%;
+      }
+
+      .amount {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+      <a
+        href="home.html"
+        class="back"
+        aria-label="Back">
+        ‹
+      </a>
+
+      <div class="header-title">
+        <h1>NOVE Orders</h1>
+        <p>View your payment history</p>
+      </div>
+
+      <div class="header-dot"></div>
+
+    </div>
+
+
+    <!-- REFRESH -->
+    <button
+      class="refresh"
+      id="refreshBtn"
+      onclick="loadOrders()">
+
+      ↻ &nbsp; Refresh Orders
+
+    </button>
+
+
+    <!-- ORDERS -->
+    <div id="ordersContainer">
+
+      <div class="loading">
+
+        <div class="loading-spinner"></div>
+
+        Loading orders...
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* ==========================================
+       LOAD ORDERS
+    ========================================== */
+
+    async function loadOrders() {
+
+      const container =
+        document.getElementById(
+          "ordersContainer"
+        );
+
+      const refreshBtn =
+        document.getElementById(
+          "refreshBtn"
+        );
+
+
+      container.innerHTML = `
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          Loading orders...
+        </div>
+      `;
+
+
+      refreshBtn.disabled = true;
+
+      refreshBtn.textContent =
+        "Loading...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/orders",
+            {
+              credentials: "include"
+            }
+          );
+
+
+        /* SESSION EXPIRED */
+
+        if (
+          response.status === 401
+        ) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Unable to load orders."
+          );
+
+        }
+
+
+        /*
+          Backend अलग-अलग format में
+          data भेज सकता है.
+        */
+
+        const orders =
+          Array.isArray(data)
+            ? data
+            : (
+                data.orders ||
+                data.payments ||
+                []
+              );
+
+
+        /* NO ORDERS */
+
+        if (
+          orders.length === 0
+        ) {
+
+          container.innerHTML = `
+            <div class="empty">
+
+              <div class="empty-icon">
+                📋
+              </div>
+
+              <div class="empty-title">
+                No Orders Yet
+              </div>
+
+              <div class="empty-text">
+                Your payment history will appear here.
+              </div>
+
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        container.innerHTML =
+          "";
+
+
+        /* =====================================
+           CREATE ORDER CARDS
+        ===================================== */
+
+        orders.forEach(
+          (order, index) => {
+
+            const item =
+              document.createElement(
+                "div"
+              );
+
+            item.className =
+              "order";
+
+            item.style.animationDelay =
+              `${index * 0.06}s`;
+
+
+            /* STATUS */
+
+            const rawStatus =
+              String(
+                order.status ||
+                order.payment_status ||
+                "pending"
+              ).toLowerCase();
+
+
+            let statusClass =
+              "";
+
+
+            if (
+              rawStatus.includes(
+                "pending"
+              )
+            ) {
+
+              statusClass =
+                "pending";
+
+            }
+
+
+            if (
+              rawStatus.includes(
+                "fail"
+              )
+            ) {
+
+              statusClass =
+                "failed";
+
+            }
+
+
+            const statusText =
+              order.status ||
+              order.payment_status ||
+              "Pending";
+
+
+            /* AMOUNT */
+
+            const amount =
+              Number(
+                order.amount ||
+                order.amount_inr ||
+                0
+              );
+
+
+            /* DATE */
+
+            const dateValue =
+              order.created_at ||
+              order.createdAt ||
+              order.date;
+
+
+            let dateText =
+              "-";
+
+
+            if (dateValue) {
+
+              const date =
+                new Date(
+                  dateValue
+                );
+
+
+              if (
+                !isNaN(
+                  date.getTime()
+                )
+              ) {
+
+                dateText =
+                  date.toLocaleString(
+                    "en-IN",
+                    {
+                      dateStyle:
+                        "medium",
+                      timeStyle:
+                        "short"
+                    }
+                  );
+
+              } else {
+
+                dateText =
+                  String(
+                    dateValue
+                  );
+
+              }
+
+            }
+
+
+            /* ORDER ID */
+
+            const orderId =
+              order.order_id ||
+              order.razorpay_order_id ||
+              order.orderId ||
+              "-";
+
+
+            /* PAYMENT ID */
+
+            const paymentId =
+              order.payment_id ||
+              order.razorpay_payment_id ||
+              order.paymentId ||
+              "-";
+
+
+            /* PLAN */
+
+            const plan =
+              order.plan ||
+              "Deposit";
+
+
+            /* =================================
+               CARD HTML
+            ================================= */
+
+            item.innerHTML = `
+
+              <div class="order-top">
+
+                <div class="order-title">
+                  ${escapeHtml(plan)}
+                </div>
+
+                <div class="status ${statusClass}">
+                  ${escapeHtml(statusText)}
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="label">
+                  Amount
+                </div>
+
+                <div class="value amount">
+                  ₹${amount.toLocaleString("en-IN")}
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="label">
+                  Order ID
+                </div>
+
+                <div class="value">
+                  ${escapeHtml(orderId)}
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="label">
+                  Payment ID
+                </div>
+
+                <div class="value">
+                  ${escapeHtml(paymentId)}
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="label">
+                  Date
+                </div>
+
+                <div class="value">
+                  ${escapeHtml(dateText)}
+                </div>
+
+              </div>
+
+            `;
+
+
+            container.appendChild(
+              item
+            );
+
+          }
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "ORDERS ERROR:",
+          error
+        );
+
+
+        container.innerHTML = `
+          <div class="error">
+            ${escapeHtml(
+              error.message ||
+              "Unable to load orders."
+            )}
+          </div>
+        `;
+
+
+      } finally {
+
+        refreshBtn.disabled =
+          false;
+
+        refreshBtn.textContent =
+          "↻  Refresh Orders";
+
+      }
+
+    }
+
+
+    /* ==========================================
+       SECURITY HELPER
+    ========================================== */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* ==========================================
+       INITIAL LOAD
+    ========================================== */
+
+    loadOrders();
+
+  </script>
+
+</body>
+</html>

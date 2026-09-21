@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>NOVE Admin Dashboard</title>
+
+  <link
+    rel="stylesheet"
+    href="/admin/admin.css"
+  >
+
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
+
+  <aside class="admin-sidebar">
+
+    <div class="sidebar-brand">
+
+      <div class="brand-logo">
+        N
+      </div>
+
+      <div class="brand-text">
+        NOVE
+      </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Main
+        </div>
+
+        <a
+          href="#dashboard"
+          class="nav-item active"
+          data-section="dashboard"
+        >
+          <span class="nav-icon">⌂</span>
+          <span class="nav-label">
+            Dashboard
+          </span>
+        </a>
+
+      </div>
+
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Management
+        </div>
+
+        <a
+          href="#users"
+          class="nav-item"
+          data-section="users"
+        >
+          <span class="nav-icon">◉</span>
+          <span class="nav-label">
+            Users
+          </span>
+        </a>
+
+        <a
+          href="#withdrawals"
+          class="nav-item"
+          data-section="withdrawals"
+        >
+          <span class="nav-icon">₹</span>
+          <span class="nav-label">
+            Withdrawals
+          </span>
+        </a>
+
+      </div>
+
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Account
+        </div>
+
+        <a
+          href="#logout"
+          class="nav-item"
+          id="logoutButton"
+        >
+          <span class="nav-icon">↪</span>
+          <span class="nav-label">
+            Logout
+          </span>
+        </a>
+
+      </div>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main class="admin-main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="admin-topbar">
+
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          gap:12px;
+          min-width:0;
+        "
+      >
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="menuToggle"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+        <div>
+
+          <div class="page-title">
+            NOVE Admin
+          </div>
+
+          <div class="page-subtitle">
+            Management Dashboard
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="topbar-right">
+
+        <div class="admin-profile">
+
+          <div class="admin-avatar">
+            A
+          </div>
+
+          <div>
+
+            <div class="admin-name">
+              Administrator
+            </div>
+
+            <div class="admin-role">
+              Super Admin
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+
+    <section class="admin-content">
+
+
+      <!-- =================================================
+           DASHBOARD
+      ================================================== -->
+
+      <section
+        id="dashboardSection"
+        class="admin-section"
+      >
+
+        <div class="page-header">
+
+          <h1>
+            Dashboard
+          </h1>
+
+          <p>
+            Overview of your NOVE platform
+          </p>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats-grid">
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              👤
+            </div>
+
+            <div class="stat-label">
+              Total Users
+            </div>
+
+            <div
+              class="stat-value"
+              id="totalUsers"
+            >
+              0
+            </div>
+
+            <div class="stat-meta">
+              Registered accounts
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ₹
+            </div>
+
+            <div class="stat-label">
+              Total Balance
+            </div>
+
+            <div
+              class="stat-value"
+              id="totalBalance"
+            >
+              ₹0.00
+            </div>
+
+            <div class="stat-meta">
+              User wallet balance
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ↓
+            </div>
+
+            <div class="stat-label">
+              Total Deposits
+            </div>
+
+            <div
+              class="stat-value"
+              id="totalDeposits"
+            >
+              ₹0.00
+            </div>
+
+            <div class="stat-meta">
+              Platform deposits
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ↑
+            </div>
+
+            <div class="stat-label">
+              Total Withdrawn
+            </div>
+
+            <div
+              class="stat-value"
+              id="totalWithdrawn"
+            >
+              ₹0.00
+            </div>
+
+            <div class="stat-meta">
+              Processed withdrawals
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ⏳
+            </div>
+
+            <div class="stat-label">
+              Pending
+            </div>
+
+            <div
+              class="stat-value"
+              id="pendingWithdrawals"
+            >
+              0
+            </div>
+
+            <div class="stat-meta">
+              Pending withdrawals
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              ⚙
+            </div>
+
+            <div class="stat-label">
+              Processing
+            </div>
+
+            <div
+              class="stat-value"
+              id="processingWithdrawals"
+            >
+              0
+            </div>
+
+            <div class="stat-meta">
+              Currently processing
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- USERS -->
+
+        <div
+          class="panel"
+          id="users"
+        >
+
+          <div class="panel-header">
+
+            <div>
+
+              <div class="panel-title">
+                Users
+              </div>
+
+              <div class="panel-subtitle">
+                Manage registered users
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel-body">
+
+            <div class="search-box">
+
+              <span class="search-icon">
+                🔍
+              </span>
+
+              <input
+                id="userSearch"
+                type="search"
+                placeholder="Search users..."
+                data-table-search="#usersTable"
+              >
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+              <table
+                class="admin-table"
+                id="usersTable"
+              >
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      User
+                    </th>
+
+                    <th>
+                      Phone
+                    </th>
+
+                    <th>
+                      Referral
+                    </th>
+
+                    <th>
+                      Balance
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+                    <th>
+                      Created
+                    </th>
+
+                    <th>
+                      Actions
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody id="usersTableBody">
+
+                  <tr>
+
+                    <td
+                      colspan="7"
+                      style="text-align:center;"
+                    >
+
+                      <div class="loading">
+
+                        <div class="spinner"></div>
+
+                        Loading users...
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- WITHDRAWALS -->
+
+        <div
+          class="panel"
+          id="withdrawals"
+        >
+
+          <div class="panel-header">
+
+            <div>
+
+              <div class="panel-title">
+                Withdrawals
+              </div>
+
+              <div class="panel-subtitle">
+                Manage withdrawal requests
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel-body">
+
+            <div class="table-wrapper">
+
+              <table
+                class="admin-table"
+                id="withdrawalsTable"
+              >
+
+                <thead>
+
+                  <tr>
+
+                    <th>
+                      User
+                    </th>
+
+                    <th>
+                      Phone
+                    </th>
+
+                    <th>
+                      Amount
+                    </th>
+
+                    <th>
+                      Method
+                    </th>
+
+                    <th>
+                      Account
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+                    <th>
+                      Date
+                    </th>
+
+                    <th>
+                      Actions
+                    </th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody id="withdrawalsTableBody">
+
+                  <tr>
+
+                    <td
+                      colspan="8"
+                      style="text-align:center;"
+                    >
+
+                      <div class="loading">
+
+                        <div class="spinner"></div>
+
+                        Loading withdrawals...
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- =======================================================
+     ADMIN JS
+======================================================== -->
+
+<script src="/admin/admin.js"></script>
+
+
+<!-- =======================================================
+     SMALL NAVIGATION HANDLER
+     Does NOT change backend/API logic.
+======================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const navItems =
+    document.querySelectorAll(
+      ".nav-item[data-section]"
+    );
+
+  const sections = {
+    dashboard:
+      document.getElementById(
+        "dashboardSection"
+      ),
+
+    users:
+      document.getElementById("users"),
+
+    withdrawals:
+      document.getElementById(
+        "withdrawals"
+      )
+  };
+
+
+  function scrollToSection(name) {
+
+    const target =
+      sections[name];
+
+    if (!target) return;
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+
+  navItems.forEach((item) => {
+
+    item.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+
+        navItems.forEach((nav) => {
+          nav.classList.remove(
+            "active"
+          );
+        });
+
+        item.classList.add(
+          "active"
+        );
+
+        const section =
+          item.dataset.section;
+
+        scrollToSection(section);
+
+        const sidebar =
+          document.querySelector(
+            ".admin-sidebar"
+          );
+
+        if (sidebar) {
+          sidebar.classList.remove(
+            "active",
+            "open"
+          );
+        }
+
+      }
+    );
+
+  });
+
+
+  const logout =
+    document.getElementById(
+      "logoutButton"
+    );
+
+  if (logout) {
+
+    logout.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+
+        if (
+          window.NOVE_ADMIN &&
+          typeof window.NOVE_ADMIN.adminLogout ===
+            "function"
+        ) {
+          window.NOVE_ADMIN.adminLogout();
+        }
+
+      }
+    );
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "nove",
+  "version": "1.0.0",
+  "description": "NOVE APP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "connect-mongo": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mongoose": "^9.9.5",
+    "razorpay": "^2.9.8"
+  }
+}

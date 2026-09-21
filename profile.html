@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVE - Profile</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #ff1744;
+      --red-dark: #c4002f;
+      --red-light: #ff4d6d;
+
+      --bg: #050505;
+      --card: rgba(18, 18, 20, 0.88);
+      --border: rgba(255,255,255,0.08);
+
+      --muted: #8d8d98;
+      --green: #35e889;
+      --danger: #ff5964;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 10% 0%,
+          rgba(255,23,68,0.20),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(196,0,47,0.12),
+          transparent 30%
+        ),
+        linear-gradient(
+          180deg,
+          #090909 0%,
+          #030303 100%
+        );
+
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+
+      opacity: 0.07;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,0.05) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.05) 1px,
+          transparent 1px
+        );
+
+      background-size: 35px 35px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 85%
+        );
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+
+      margin: auto;
+      padding: 18px;
+
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =================================
+       HEADER
+    ================================= */
+
+    .header {
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+
+      margin-bottom: 22px;
+
+      animation: slideDown 0.5s ease;
+    }
+
+    .back {
+      width: 44px;
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #fff;
+      text-decoration: none;
+
+      font-size: 30px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: rgba(255,255,255,0.05);
+
+      backdrop-filter: blur(14px);
+
+      transition: 0.25s ease;
+    }
+
+    .back:hover {
+      color: #fff;
+
+      background:
+        rgba(255,23,68,0.14);
+
+      border-color:
+        rgba(255,23,68,0.45);
+
+      transform:
+        translateX(-3px);
+
+      box-shadow:
+        0 0 25px
+        rgba(255,23,68,0.15);
+    }
+
+    .header-title {
+      flex: 1;
+    }
+
+    .header-title h1 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .header-title p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .header-dot {
+      width: 10px;
+      height: 10px;
+
+      border-radius: 50%;
+
+      background: var(--red);
+
+      box-shadow:
+        0 0 10px var(--red),
+        0 0 20px rgba(255,23,68,0.6);
+
+      animation: pulse 1.8s infinite;
+    }
+
+    /* =================================
+       PROFILE CARD
+    ================================= */
+
+    .profile-card {
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(22,22,24,0.95),
+          rgba(10,10,11,0.94)
+        );
+
+      border: 1px solid var(--border);
+
+      border-radius: 22px;
+
+      padding: 22px 20px;
+
+      margin-bottom: 16px;
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,0.30);
+
+      backdrop-filter: blur(18px);
+
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .profile-card::after {
+      content: "";
+
+      position: absolute;
+
+      width: 150px;
+      height: 150px;
+
+      right: -80px;
+      top: -80px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,23,68,0.15),
+          transparent 70%
+        );
+
+      pointer-events: none;
+    }
+
+    /* =================================
+       AVATAR
+    ================================= */
+
+    .avatar {
+      width: 86px;
+      height: 86px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 15px;
+
+      font-size: 31px;
+      font-weight: 900;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--red),
+          var(--red-dark)
+        );
+
+      border: 3px solid
+        rgba(255,255,255,0.10);
+
+      box-shadow:
+        0 0 0 7px
+          rgba(255,23,68,0.07),
+        0 0 35px
+          rgba(255,23,68,0.28);
+
+      animation:
+        avatarGlow 2.5s ease-in-out infinite;
+    }
+
+    .user-name {
+      text-align: center;
+
+      font-size: 22px;
+      font-weight: 900;
+
+      color: #fff;
+    }
+
+    .user-mobile {
+      text-align: center;
+
+      color: var(--muted);
+
+      margin-top: 6px;
+
+      font-size: 13px;
+    }
+
+    .profile-badge {
+      width: max-content;
+
+      margin: 12px auto 0;
+
+      padding: 6px 11px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,23,68,0.10);
+
+      border:
+        1px solid
+        rgba(255,23,68,0.18);
+
+      color: var(--red-light);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* =================================
+       SECTION TITLE
+    ================================= */
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 900;
+
+      margin-bottom: 14px;
+
+      color: #fff;
+    }
+
+    /* =================================
+       INFO ROW
+    ================================= */
+
+    .info-row {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: flex-start;
+
+      gap: 15px;
+
+      padding: 14px 0;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,0.055);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+      padding-bottom: 2px;
+    }
+
+    .label {
+      color: #777783;
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .value {
+      color: #f4f4f5;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      text-align: right;
+
+      word-break: break-all;
+
+      max-width: 65%;
+    }
+
+    /* =================================
+       REFERRAL
+    ================================= */
+
+    .referral-box {
+      background:
+        rgba(0,0,0,0.35);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+      border-radius: 15px;
+
+      padding: 12px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+    }
+
+    .referral-code {
+      font-size: 15px;
+
+      font-weight: 900;
+
+      letter-spacing: 1px;
+
+      color: var(--red-light);
+
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      width: auto;
+
+      padding: 10px 15px;
+
+      border: none;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--red),
+          var(--red-dark)
+        );
+
+      color: #fff;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      flex-shrink: 0;
+
+      transition: 0.2s ease;
+
+      box-shadow:
+        0 7px 20px
+        rgba(255,23,68,0.18);
+    }
+
+    .copy-btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 10px 25px
+        rgba(255,23,68,0.28);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* =================================
+       MENU
+    ================================= */
+
+    .menu {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(22,22,24,0.95),
+          rgba(10,10,11,0.94)
+        );
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 20px;
+
+      overflow: hidden;
+
+      margin-bottom: 17px;
+
+      box-shadow:
+        0 18px 40px
+        rgba(0,0,0,0.28);
+
+      backdrop-filter: blur(18px);
+
+      animation:
+        fadeUp 0.55s ease both;
+    }
+
+    .menu a {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding: 16px 17px;
+
+      color: #fff;
+
+      text-decoration: none;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,0.055);
+
+      transition: 0.22s ease;
+    }
+
+    .menu a:last-child {
+      border-bottom: none;
+    }
+
+    .menu a:hover {
+      background:
+        rgba(255,23,68,0.07);
+
+      padding-left: 21px;
+    }
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-icon {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,23,68,0.09);
+
+      border:
+        1px solid
+        rgba(255,23,68,0.12);
+
+      font-size: 17px;
+    }
+
+    .menu-text {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .menu-arrow {
+      color: #666672;
+      font-size: 22px;
+      transition: 0.2s ease;
+    }
+
+    .menu a:hover .menu-arrow {
+      color: var(--red-light);
+      transform: translateX(3px);
+    }
+
+    /* =================================
+       LOGOUT
+    ================================= */
+
+    .logout-btn {
+      width: 100%;
+
+      padding: 15px;
+
+      border:
+        1px solid
+        rgba(255,89,100,0.35);
+
+      border-radius: 15px;
+
+      background:
+        rgba(255,89,100,0.05);
+
+      color:
+        #ff6974;
+
+      font-size: 15px;
+      font-weight: 900;
+
+      cursor: pointer;
+
+      transition: 0.25s ease;
+
+      animation:
+        fadeUp 0.6s ease both;
+    }
+
+    .logout-btn:hover {
+      background:
+        rgba(255,23,68,0.12);
+
+      border-color:
+        rgba(255,23,68,0.55);
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 10px 30px
+        rgba(255,23,68,0.10);
+    }
+
+    .logout-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* =================================
+       LOADING
+    ================================= */
+
+    .loading {
+      text-align: center;
+
+      color: var(--muted);
+
+      padding: 45px 20px;
+
+      background: var(--card);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 20px;
+
+      backdrop-filter: blur(18px);
+    }
+
+    .loading-spinner {
+      width: 38px;
+      height: 38px;
+
+      margin: 0 auto 14px;
+
+      border-radius: 50%;
+
+      border:
+        3px solid
+        rgba(255,255,255,0.10);
+
+      border-top-color:
+        var(--red);
+
+      animation:
+        spin 0.8s linear infinite;
+    }
+
+    /* =================================
+       ERROR
+    ================================= */
+
+    .error {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,89,100,0.12),
+          rgba(255,89,100,0.04)
+        );
+
+      border:
+        1px solid
+        rgba(255,89,100,0.22);
+
+      color:
+        #ff7c85;
+
+      padding: 17px;
+
+      border-radius: 17px;
+
+      text-align: center;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+    /* =================================
+       MESSAGE
+    ================================= */
+
+    .message {
+      text-align: center;
+
+      margin-top: 11px;
+
+      font-size: 13px;
+
+      color: var(--muted);
+    }
+
+    .success {
+      color: var(--green);
+    }
+
+    /* =================================
+       ANIMATIONS
+    ================================= */
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%,100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.35);
+        opacity: 0.65;
+      }
+    }
+
+    @keyframes avatarGlow {
+      0%,100% {
+        box-shadow:
+          0 0 0 7px
+            rgba(255,23,68,0.07),
+          0 0 30px
+            rgba(255,23,68,0.20);
+      }
+
+      50% {
+        box-shadow:
+          0 0 0 9px
+            rgba(255,23,68,0.09),
+          0 0 42px
+            rgba(255,23,68,0.34);
+      }
+    }
+
+    /* =================================
+       MOBILE
+    ================================= */
+
+    @media (max-width: 430px) {
+
+      .container {
+        padding: 15px;
+      }
+
+      .header-title h1 {
+        font-size: 21px;
+      }
+
+      .header-title p {
+        font-size: 11px;
+      }
+
+      .back {
+        width: 42px;
+        height: 42px;
+      }
+
+      .profile-card {
+        padding: 19px 16px;
+        border-radius: 19px;
+      }
+
+      .avatar {
+        width: 78px;
+        height: 78px;
+        font-size: 28px;
+      }
+
+      .user-name {
+        font-size: 20px;
+      }
+
+      .info-row {
+        gap: 10px;
+      }
+
+      .value {
+        max-width: 62%;
+        font-size: 12px;
+      }
+
+      .referral-code {
+        font-size: 13px;
+      }
+
+      .copy-btn {
+        padding: 9px 12px;
+        font-size: 12px;
+      }
+
+      .menu a {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+      <a
+        href="home.html"
+        class="back"
+        aria-label="Back">
+        ‹
+      </a>
+
+      <div class="header-title">
+        <h1>My Profile</h1>
+        <p>Manage your NOVE account</p>
+      </div>
+
+      <div class="header-dot"></div>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div id="profileArea">
+
+      <div class="loading">
+
+        <div class="loading-spinner"></div>
+
+        Loading profile...
+
+      </div>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <div class="menu">
+
+      <a href="orders.html">
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+            📋
+          </div>
+
+          <div class="menu-text">
+            My Orders
+          </div>
+
+        </div>
+
+        <div class="menu-arrow">
+          ›
+        </div>
+
+      </a>
+
+
+      <a href="refer.html">
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+            👥
+          </div>
+
+          <div class="menu-text">
+            Referral
+          </div>
+
+        </div>
+
+        <div class="menu-arrow">
+          ›
+        </div>
+
+      </a>
+
+
+      <a href="deposit.html">
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+            💳
+          </div>
+
+          <div class="menu-text">
+            Deposit
+          </div>
+
+        </div>
+
+        <div class="menu-arrow">
+          ›
+        </div>
+
+      </a>
+
+
+      <a href="withdraw.html">
+
+        <div class="menu-left">
+
+          <div class="menu-icon">
+            💸
+          </div>
+
+          <div class="menu-text">
+            Withdraw
+          </div>
+
+        </div>
+
+        <div class="menu-arrow">
+          ›
+        </div>
+
+      </a>
+
+    </div>
+
+
+    <!-- LOGOUT -->
+
+    <button
+      id="logoutBtn"
+      class="logout-btn">
+      Logout
+    </button>
+
+
+    <div
+      id="logoutMessage"
+      class="message">
+    </div>
+
+  </div>
+
+
+<script>
+
+  /* =========================
+     LOAD PROFILE
+  ========================= */
+
+  async function loadProfile() {
+
+    const profileArea =
+      document.getElementById(
+        "profileArea"
+      );
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/me",
+          {
+            credentials: "include"
+          }
+        );
+
+
+      if (response.status === 401) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.message ||
+          "Unable to load profile."
+        );
+
+      }
+
+
+      /*
+        Backend response में user object
+        हो तो उसे use करेंगे.
+      */
+
+      const user =
+        data.user ||
+        data;
+
+
+      const name =
+        user.name ||
+        user.full_name ||
+        "User";
+
+
+      const mobile =
+        user.mobile ||
+        user.phone ||
+        user.phone_number ||
+        "-";
+
+
+      const referralCode =
+        user.referral_code ||
+        user.referralCode ||
+        "-";
+
+
+      /*
+        Name का पहला letter avatar में
+      */
+
+      const firstLetter =
+        name
+          .trim()
+          .charAt(0)
+          .toUpperCase();
+
+
+      profileArea.innerHTML = `
+
+        <!-- USER CARD -->
+
+        <div class="profile-card">
+
+          <div class="avatar">
+            ${escapeHtml(firstLetter)}
+          </div>
+
+          <div class="user-name">
+            ${escapeHtml(name)}
+          </div>
+
+          <div class="user-mobile">
+            ${escapeHtml(mobile)}
+          </div>
+
+          <div class="profile-badge">
+            NOVE MEMBER
+          </div>
+
+        </div>
+
+
+        <!-- ACCOUNT INFORMATION -->
+
+        <div class="profile-card">
+
+          <div class="section-title">
+            Account Information
+          </div>
+
+
+          <div class="info-row">
+
+            <div class="label">
+              Name
+            </div>
+
+            <div class="value">
+              ${escapeHtml(name)}
+            </div>
+
+          </div>
+
+
+          <div class="info-row">
+
+            <div class="label">
+              Mobile Number
+            </div>
+
+            <div class="value">
+              ${escapeHtml(mobile)}
+            </div>
+
+          </div>
+
+
+          <div class="info-row">
+
+            <div class="label">
+              Referral Code
+            </div>
+
+            <div class="value">
+              ${escapeHtml(referralCode)}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- REFERRAL CODE -->
+
+        <div class="profile-card">
+
+          <div class="section-title">
+            Your Referral Code
+          </div>
+
+          <div class="referral-box">
+
+            <div
+              id="referralCode"
+              class="referral-code">
+
+              ${escapeHtml(referralCode)}
+
+            </div>
+
+            <button
+              class="copy-btn"
+              onclick="copyReferral()">
+
+              Copy
+
+            </button>
+
+          </div>
+
+          <div
+            id="copyMessage"
+            class="message">
+          </div>
+
+        </div>
+
+      `;
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      profileArea.innerHTML = `
+
+        <div class="error">
+
+          ${escapeHtml(
+            error.message ||
+            "Unable to load profile."
+          )}
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+
+  /* =========================
+     COPY REFERRAL
+  ========================= */
+
+  async function copyReferral() {
+
+    const codeElement =
+      document.getElementById(
+        "referralCode"
+      );
+
+    const message =
+      document.getElementById(
+        "copyMessage"
+      );
+
+
+    if (!codeElement) {
+      return;
+    }
+
+
+    const code =
+      codeElement.textContent.trim();
+
+
+    if (!code || code === "-") {
+
+      message.className =
+        "message";
+
+      message.textContent =
+        "Referral code not available.";
+
+      return;
+
+    }
+
+
+    try {
+
+      await navigator.clipboard.writeText(
+        code
+      );
+
+      message.className =
+        "message success";
+
+      message.textContent =
+        "✓ Referral code copied.";
+
+    } catch (error) {
+
+      message.className =
+        "message";
+
+      message.textContent =
+        "Unable to copy referral code.";
+
+    }
+
+  }
+
+
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async function() {
+
+        const button =
+          this;
+
+        const message =
+          document.getElementById(
+            "logoutMessage"
+          );
+
+
+        button.disabled = true;
+
+        button.textContent =
+          "Logging out...";
+
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/logout",
+              {
+                method: "POST",
+                credentials: "include"
+              }
+            );
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Logout failed."
+            );
+
+          }
+
+
+          window.location.href =
+            "login.html";
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          message.className =
+            "message";
+
+          message.textContent =
+            error.message ||
+            "Logout failed.";
+
+          button.disabled = false;
+
+          button.textContent =
+            "Logout";
+
+        }
+
+      }
+    );
+
+
+  /* =========================
+     HTML ESCAPE
+  ========================= */
+
+  function escapeHtml(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =========================
+     START
+  ========================= */
+
+  loadProfile();
+
+</script>
+
+</body>
+</html>

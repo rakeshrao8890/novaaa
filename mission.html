@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MISSION | Referral Rewards</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --red:#ff1744;
+  --red2:#ff4568;
+  --bg:#030304;
+  --card:#111114;
+  --card2:#18181c;
+  --text:#fff;
+  --muted:#85858d;
+  --line:rgba(255,255,255,.08);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(255,23,68,.23),transparent 35%),
+    radial-gradient(circle at 0% 45%,rgba(255,23,68,.06),transparent 30%),
+    linear-gradient(180deg,#09090b 0%,#040405 60%,#010102 100%);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,#000,transparent);
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent);
+}
+
+.page{
+  width:100%;
+  max-width:650px;
+  margin:auto;
+  padding:14px 12px 40px;
+  position:relative;
+  z-index:2;
+}
+
+/* HEADER */
+
+.header{
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
+  animation:headerIn .7s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes headerIn{
+  from{
+    opacity:0;
+    transform:translateY(-15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.back{
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  color:#fff;
+  text-decoration:none;
+  font-size:28px;
+  line-height:1;
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.09);
+  transition:.25s ease;
+}
+
+.back:hover{
+  border-color:rgba(255,23,68,.35);
+  transform:translateY(-2px);
+}
+
+.back:active{
+  transform:scale(.9);
+}
+
+.brand{
+  text-align:center;
+}
+
+.brand h1{
+  font-size:23px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:4px;
+  text-shadow:0 0 25px rgba(255,23,68,.2);
+}
+
+.brand span{
+  display:block;
+  margin-top:6px;
+  color:#686870;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:1.8px;
+}
+
+.header-space{
+  width:44px;
+}
+
+/* HERO */
+
+.hero{
+  text-align:center;
+  padding:15px 5px 23px;
+  animation:heroIn .8s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes heroIn{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.97);
+    filter:blur(4px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+.mission-icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:23px;
+  font-size:31px;
+  background:radial-gradient(circle at 30% 20%,rgba(255,82,104,.35),rgba(95,4,22,.8) 55%,rgba(17,2,7,1));
+  border:1px solid rgba(255,23,68,.3);
+  box-shadow:
+    0 12px 35px rgba(255,23,68,.18),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  animation:missionFloat 3s ease-in-out infinite;
+}
+
+@keyframes missionFloat{
+  0%,100%{
+    transform:translateY(0) rotate(0deg);
+  }
+  50%{
+    transform:translateY(-5px) rotate(2deg);
+  }
+}
+
+.hero h2{
+  font-size:28px;
+  font-weight:950;
+  letter-spacing:-.5px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  color:#85858d;
+  font-size:11px;
+  line-height:1.5;
+}
+
+/* ACTIVE CARD */
+
+.active-card{
+  position:relative;
+  overflow:hidden;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:23px;
+  background:linear-gradient(145deg,rgba(28,28,32,.98),rgba(8,8,10,.98));
+  border:1px solid rgba(255,255,255,.075);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  animation:cardIn .7s .1s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(25px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.active-card::before{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  right:-120px;
+  top:-120px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,23,68,.18),transparent 70%);
+  pointer-events:none;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%,100%{
+    transform:scale(1);
+    opacity:.7;
+  }
+  50%{
+    transform:scale(1.2);
+    opacity:1;
+  }
+}
+
+.card-label{
+  position:relative;
+  z-index:2;
+  color:#85858d;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+
+.active-number{
+  position:relative;
+  z-index:2;
+  font-size:46px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-2px;
+  margin-bottom:6px;
+}
+
+.active-sub{
+  position:relative;
+  z-index:2;
+  color:#85858d;
+  font-size:10px;
+  margin-bottom:19px;
+}
+
+.progress-text{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:9px;
+  color:#dddde1;
+  font-size:10px;
+  font-weight:800;
+}
+
+.progress-text span{
+  color:#ff617b;
+}
+
+.progress{
+  position:relative;
+  z-index:2;
+  width:100%;
+  height:10px;
+  overflow:hidden;
+  border-radius:20px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.progress-fill{
+  width:0%;
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#a9002a,#ff1744,#ff5574);
+  box-shadow:0 0 15px rgba(255,23,68,.35);
+  animation:progressGlow 2s ease-in-out infinite;
+}
+
+@keyframes progressGlow{
+  0%,100%{
+    filter:brightness(1);
+  }
+  50%{
+    filter:brightness(1.25);
+  }
+}
+
+/* SECTION */
+
+.section-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:25px 3px 13px;
+}
+
+.section-heading h3{
+  font-size:18px;
+  font-weight:950;
+}
+
+.unlocked{
+  padding:5px 9px;
+  border-radius:8px;
+  color:#85858d;
+  font-size:8px;
+  font-weight:900;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+/* MILESTONES */
+
+.milestone{
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-bottom:11px;
+  padding:14px;
+  border-radius:20px;
+  background:linear-gradient(145deg,rgba(25,25,29,.98),rgba(9,9,11,.98));
+  border:1px solid rgba(255,255,255,.065);
+  box-shadow:0 12px 32px rgba(0,0,0,.3);
+  animation:milestoneIn .6s cubic-bezier(.22,1,.36,1) both;
+  transition:transform .3s ease,border-color .3s ease;
+}
+
+.milestone:nth-child(2){animation-delay:.05s}
+.milestone:nth-child(3){animation-delay:.1s}
+.milestone:nth-child(4){animation-delay:.15s}
+.milestone:nth-child(5){animation-delay:.2s}
+.milestone:nth-child(6){animation-delay:.25s}
+.milestone:nth-child(7){animation-delay:.3s}
+.milestone:nth-child(8){animation-delay:.35s}
+
+@keyframes milestoneIn{
+  from{
+    opacity:0;
+    transform:translateX(-18px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0) scale(1);
+  }
+}
+
+.milestone:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,23,68,.22);
+}
+
+/* NUMBER */
+
+.milestone-number{
+  position:relative;
+  flex:0 0 52px;
+  width:52px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  color:#ff647d;
+  font-size:19px;
+  font-weight:950;
+  background:linear-gradient(145deg,rgba(255,23,68,.14),rgba(255,23,68,.035));
+  border:1px solid rgba(255,23,68,.18);
+}
+
+.milestone-number::after{
+  content:"";
+  position:absolute;
+  inset:5px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.035);
+}
+
+/* CONTENT */
+
+.milestone-content{
+  flex:1;
+  min-width:0;
+}
+
+.milestone-title{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:5px;
+}
+
+.milestone-title strong{
+  font-size:13px;
+  font-weight:900;
+}
+
+.next-badge{
+  padding:3px 6px;
+  border-radius:6px;
+  color:#ff617b;
+  font-size:6px;
+  font-weight:950;
+  letter-spacing:.4px;
+  background:rgba(255,23,68,.10);
+  border:1px solid rgba(255,23,68,.16);
+}
+
+.milestone-info{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px 9px;
+  color:#707078;
+  font-size:8px;
+  line-height:1.6;
+}
+
+.milestone-info b{
+  color:#d5d5d9;
+  font-weight:800;
+}
+
+.reward{
+  color:#ff617b!important;
+}
+
+/* LOCK */
+
+.lock-btn{
+  flex:0 0 auto;
+  min-width:67px;
+  min-height:34px;
+  padding:7px 8px;
+  border:0;
+  border-radius:10px;
+  color:#74747b;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.065);
+  font-size:7px;
+  font-weight:900;
+  cursor:not-allowed;
+}
+
+/* CLAIM */
+
+.claim-card{
+  margin-top:25px;
+  padding:21px;
+  text-align:center;
+  border-radius:23px;
+  background:linear-gradient(145deg,rgba(255,23,68,.10),rgba(255,255,255,.025));
+  border:1px solid rgba(255,23,68,.16);
+  box-shadow:0 18px 50px rgba(0,0,0,.35);
+  animation:cardIn .7s .35s cubic-bezier(.22,1,.36,1) both;
+}
+
+.claim-label{
+  color:#85858d;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+
+.claim-amount{
+  font-size:35px;
+  font-weight:950;
+  margin-bottom:15px;
+}
+
+.claim-btn{
+  width:100%;
+  min-height:47px;
+  border:0;
+  border-radius:14px;
+  color:#77777d;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.07);
+  font-size:10px;
+  font-weight:950;
+  cursor:not-allowed;
+}
+
+/* INSTRUCTIONS */
+
+.instructions{
+  margin-top:18px;
+  padding:19px;
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.065);
+  animation:cardIn .7s .45s cubic-bezier(.22,1,.36,1) both;
+}
+
+.instructions h3{
+  font-size:16px;
+  font-weight:950;
+  margin-bottom:14px;
+}
+
+.instruction{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  color:#9a9aa2;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.instruction-number{
+  flex:0 0 24px;
+  width:24px;
+  height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  color:#ff6079;
+  font-size:9px;
+  font-weight:950;
+  background:rgba(255,23,68,.09);
+  border:1px solid rgba(255,23,68,.14);
+}
+
+/* MOBILE */
+
+@media(max-width:430px){
+
+  .page{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .hero h2{
+    font-size:25px;
+  }
+
+  .active-card{
+    padding:18px;
+  }
+
+  .active-number{
+    font-size:42px;
+  }
+
+  .milestone{
+    padding:12px;
+    gap:10px;
+  }
+
+  .milestone-number{
+    flex-basis:47px;
+    width:47px;
+    height:47px;
+    border-radius:14px;
+    font-size:17px;
+  }
+
+  .milestone-title strong{
+    font-size:12px;
+  }
+
+  .milestone-info{
+    font-size:7px;
+  }
+
+  .lock-btn{
+    min-width:61px;
+    font-size:6px;
+  }
+}
+
+@media(max-width:350px){
+
+  .milestone{
+    align-items:flex-start;
+  }
+
+  .milestone-number{
+    flex-basis:42px;
+    width:42px;
+    height:42px;
+  }
+
+  .lock-btn{
+    min-width:55px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <a href="./plans.html" class="back" aria-label="Back">
+      ‹
+    </a>
+
+    <div class="brand">
+      <h1>MISSION</h1>
+      <span>REFERRAL REWARDS</span>
+    </div>
+
+    <div class="header-space"></div>
+
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="mission-icon">
+      🎯
+    </div>
+
+    <h2>Mission</h2>
+
+    <p>
+      Complete your referral milestones and unlock rewards.
+    </p>
+
+  </section>
+
+
+  <!-- ACTIVE MEMBERS -->
+
+  <section class="active-card">
+
+    <div class="card-label">
+      Today's Active Members
+    </div>
+
+    <div class="active-number">
+      0
+    </div>
+
+    <div class="active-sub">
+      joined &amp; recharged
+    </div>
+
+    <div class="progress-text">
+
+      <span>
+        3 more to unlock ₹50
+      </span>
+
+      <strong>
+        0/3
+      </strong>
+
+    </div>
+
+    <div class="progress">
+
+      <div class="progress-fill"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- REWARD MILESTONES -->
+
+  <div class="section-heading">
+
+    <h3>
+      Reward Milestones
+    </h3>
+
+    <div class="unlocked">
+      0/7 unlocked
+    </div>
+
+  </div>
+
+
+  <!-- 1 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">1</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+
+        <strong>3 Members</strong>
+
+        <span class="next-badge">
+          NEXT
+        </span>
+
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>3 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹50</b>
+        </span>
+
+        <span>
+          Status: <b>3 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- 2 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">2</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+        <strong>5 Members</strong>
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>5 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹120</b>
+        </span>
+
+        <span>
+          Status: <b>5 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- 3 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">3</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+        <strong>10 Members</strong>
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>10 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹300</b>
+        </span>
+
+        <span>
+          Status: <b>10 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- 4 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">4</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+        <strong>20 Members</strong>
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>20 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹700</b>
+        </span>
+
+        <span>
+          Status: <b>20 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- 5 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">5</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+        <strong>35 Members</strong>
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>35 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹1,500</b>
+        </span>
+
+        <span>
+          Status: <b>35 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- 6 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">6</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+        <strong>50 Members</strong>
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>50 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹3,000</b>
+        </span>
+
+        <span>
+          Status: <b>50 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- 7 -->
+
+  <div class="milestone">
+
+    <div class="milestone-number">7</div>
+
+    <div class="milestone-content">
+
+      <div class="milestone-title">
+        <strong>100 Members</strong>
+      </div>
+
+      <div class="milestone-info">
+
+        <span>
+          Members: <b>100 active</b>
+        </span>
+
+        <span>
+          Reward: <b class="reward">₹7,000</b>
+        </span>
+
+        <span>
+          Status: <b>100 to go</b>
+        </span>
+
+      </div>
+
+    </div>
+
+    <button class="lock-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </div>
+
+
+  <!-- AVAILABLE TO CLAIM -->
+
+  <section class="claim-card">
+
+    <div class="claim-label">
+      Available to Claim
+    </div>
+
+    <div class="claim-amount">
+      ₹0
+    </div>
+
+    <button class="claim-btn" disabled>
+      🔒 Locked
+    </button>
+
+  </section>
+
+
+  <!-- INSTRUCTIONS -->
+
+  <section class="instructions">
+
+    <h3>
+      Instructions
+    </h3>
+
+    <div class="instruction">
+
+      <div class="instruction-number">
+        1
+      </div>
+
+      <div>
+        Share your invite link — a member counts once
+        they join today and complete a recharge.
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+</body>
+</html>

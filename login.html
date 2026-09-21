@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVE | Login</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --red: #ff1744;
+      --red2: #ff365d;
+      --dark-red: #b8002d;
+      --bg: #050506;
+      --card: rgba(18,18,20,.88);
+      --text: #fff;
+      --muted: #85858c;
+      --border: rgba(255,255,255,.08);
+      --green: #32d583;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      min-height: 100svh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(255,23,68,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(184,0,45,.11),
+          transparent 32%
+        ),
+        #050506;
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 55px 55px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 90%
+        );
+
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .orb.one {
+      width: 330px;
+      height: 330px;
+
+      background: rgba(255,23,68,.17);
+
+      top: -180px;
+      right: -100px;
+
+      animation: floatOne 8s ease-in-out infinite;
+    }
+
+    .orb.two {
+      width: 300px;
+      height: 300px;
+
+      background: rgba(180,0,45,.13);
+
+      bottom: -180px;
+      left: -120px;
+
+      animation: floatTwo 9s ease-in-out infinite;
+    }
+
+    @keyframes floatOne {
+      0%,100% {
+        transform: translate(0,0);
+      }
+
+      50% {
+        transform: translate(-45px,55px);
+      }
+    }
+
+    @keyframes floatTwo {
+      0%,100% {
+        transform: translate(0,0);
+      }
+
+      50% {
+        transform: translate(55px,-35px);
+      }
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+
+      position: relative;
+      z-index: 5;
+
+      padding: 38px 32px 30px;
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(28,28,31,.94),
+          rgba(10,10,11,.90)
+        );
+
+      border: 1px solid rgba(255,255,255,.09);
+
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.70),
+        0 0 70px rgba(255,23,68,.08),
+        inset 0 1px 0 rgba(255,255,255,.05);
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+
+      animation: cardEnter .75s cubic-bezier(.2,.8,.2,1);
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(35px) scale(.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .top-line {
+      position: absolute;
+
+      top: 0;
+      left: 15%;
+      right: 15%;
+
+      height: 2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--red),
+          transparent
+        );
+
+      box-shadow:
+        0 0 18px rgba(255,23,68,.7);
+
+      border-radius: 50%;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    /* =========================================
+       PREMIUM CIRCULAR LOGO
+    ========================================= */
+
+    .logo-wrap {
+      width: 94px;
+      height: 94px;
+
+      margin: 0 auto 20px;
+
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 25%,
+          rgba(255,255,255,.12),
+          rgba(255,23,68,.10) 35%,
+          rgba(8,8,10,.98) 72%
+        );
+
+      border: 2px solid rgba(255,23,68,.65);
+
+      box-shadow:
+        0 0 0 5px rgba(255,23,68,.055),
+        0 0 0 9px rgba(255,23,68,.025),
+        0 12px 32px rgba(0,0,0,.55),
+        0 0 32px rgba(255,23,68,.25),
+        inset 0 0 22px rgba(255,23,68,.10);
+
+      overflow: hidden;
+
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    .logo-wrap::before {
+      content: "";
+
+      position: absolute;
+      inset: -2px;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 35deg,
+          rgba(255,82,104,.95) 70deg,
+          transparent 110deg,
+          transparent 190deg,
+          rgba(255,23,68,.85) 235deg,
+          transparent 280deg,
+          transparent 360deg
+        );
+
+      animation: logoRing 5s linear infinite;
+
+      z-index: 0;
+    }
+
+    .logo-wrap::after {
+      content: "";
+
+      position: absolute;
+      inset: 5px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 30% 25%,
+          rgba(255,255,255,.08),
+          rgba(12,12,15,.98) 62%
+        );
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      z-index: 1;
+    }
+
+    .logo {
+      width: 76%;
+      height: 76%;
+
+      object-fit: contain;
+
+      border-radius: 50%;
+
+      position: relative;
+      z-index: 2;
+
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.35);
+
+      filter:
+        drop-shadow(0 0 7px rgba(255,23,68,.75))
+        drop-shadow(0 0 16px rgba(255,23,68,.30));
+    }
+
+    @keyframes logoFloat {
+      0%,100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes logoRing {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .brand-name {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 5px;
+      line-height: 1;
+    }
+
+    .brand-name span {
+      color: var(--red);
+
+      text-shadow:
+        0 0 22px rgba(255,23,68,.35);
+    }
+
+    .brand-subtitle {
+      margin-top: 11px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      letter-spacing: .5px;
+    }
+
+    .welcome {
+      margin-bottom: 24px;
+    }
+
+    .welcome h2 {
+      font-size: 22px;
+      font-weight: 750;
+      margin-bottom: 7px;
+    }
+
+    .welcome p {
+      color: #77777e;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 8px;
+
+      color: #cfcfd4;
+
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    .input-box {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 16px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 18px;
+
+      color: #6e6e75;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      pointer-events: none;
+
+      transition: .25s;
+    }
+
+    .input-box:focus-within .input-icon {
+      color: var(--red);
+    }
+
+    .input-box input {
+      width: 100%;
+      height: 56px;
+
+      padding: 0 48px;
+
+      border-radius: 15px;
+
+      outline: none;
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      background:
+        rgba(255,255,255,.045);
+
+      color: white;
+
+      font-size: 14px;
+
+      transition:
+        border .25s,
+        background .25s,
+        box-shadow .25s;
+    }
+
+    .input-box input:hover {
+      border-color:
+        rgba(255,255,255,.14);
+    }
+
+    .input-box input:focus {
+      border-color:
+        rgba(255,23,68,.65);
+
+      background:
+        rgba(255,23,68,.035);
+
+      box-shadow:
+        0 0 0 4px rgba(255,23,68,.07);
+    }
+
+    .input-box input::placeholder {
+      color: #595960;
+    }
+
+    .toggle-password {
+      position: absolute;
+
+      right: 8px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 40px;
+      height: 40px;
+
+      border: 0;
+
+      border-radius: 11px;
+
+      background: transparent;
+
+      color: #77777d;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      transition: .2s;
+    }
+
+    .toggle-password:hover {
+      background:
+        rgba(255,255,255,.06);
+
+      color: white;
+    }
+
+    .login-button {
+      width: 100%;
+      height: 57px;
+
+      position: relative;
+      overflow: hidden;
+
+      border: 0;
+      border-radius: 16px;
+
+      cursor: pointer;
+
+      color: white;
+
+      font-size: 14px;
+      font-weight: 850;
+      letter-spacing: 1px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e90035 0%,
+          #ff1744 48%,
+          #ff3d61 100%
+        );
+
+      box-shadow:
+        0 15px 32px rgba(255,23,68,.24);
+
+      transition:
+        transform .2s,
+        box-shadow .2s;
+    }
+
+    .login-button::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -100%;
+
+      width: 60%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.25),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+
+      animation: buttonShine 3.5s infinite;
+    }
+
+    @keyframes buttonShine {
+      0% {
+        left: -100%;
+      }
+
+      45%,100% {
+        left: 150%;
+      }
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 20px 40px rgba(255,23,68,.32);
+    }
+
+    .login-button:active {
+      transform: scale(.975);
+    }
+
+    .login-button:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .button-content {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+    }
+
+    .loader {
+      width: 16px;
+      height: 16px;
+
+      border-radius: 50%;
+
+      border:
+        2px solid rgba(255,255,255,.35);
+
+      border-top-color: white;
+
+      animation: spin .7s linear infinite;
+
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error-box {
+      display: none;
+
+      margin-bottom: 15px;
+
+      padding: 12px 14px;
+
+      border-radius: 13px;
+
+      border: 1px solid rgba(255,23,68,.22);
+
+      background:
+        rgba(255,23,68,.07);
+
+      color: #ff8197;
+
+      font-size: 11px;
+
+      line-height: 1.45;
+
+      animation: errorIn .3s ease;
+    }
+
+    @keyframes errorIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .success-box {
+      display: none;
+
+      margin-bottom: 15px;
+
+      padding: 12px 14px;
+
+      border-radius: 13px;
+
+      border: 1px solid rgba(50,213,131,.22);
+
+      background:
+        rgba(50,213,131,.07);
+
+      color: #69e6a2;
+
+      font-size: 11px;
+
+      line-height: 1.45;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      margin: 23px 0 20px;
+
+      color: #55555b;
+
+      font-size: 9px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background:
+        rgba(255,255,255,.07);
+    }
+
+    .register {
+      text-align: center;
+
+      color: #77777e;
+
+      font-size: 12px;
+    }
+
+    .register a {
+      color: white;
+
+      text-decoration: none;
+
+      font-weight: 800;
+
+      margin-left: 4px;
+
+      transition: .2s;
+    }
+
+    .register a:hover {
+      color: var(--red);
+    }
+
+    .secure {
+      margin-top: 23px;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      gap: 6px;
+
+      color: #4f4f55;
+
+      font-size: 9px;
+      letter-spacing: .5px;
+    }
+
+    .secure-dot {
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 8px rgba(50,213,131,.5);
+    }
+
+    @media (max-width: 480px) {
+
+      .page {
+        padding: 14px;
+      }
+
+      .login-card {
+        padding: 31px 20px 26px;
+        border-radius: 25px;
+      }
+
+      .logo-wrap {
+        width: 78px;
+        height: 78px;
+      }
+
+      .logo {
+        width: 68px;
+        height: 68px;
+      }
+
+      .brand-name {
+        font-size: 28px;
+      }
+
+      .welcome h2 {
+        font-size: 20px;
+      }
+
+      .input-box input {
+        height: 54px;
+      }
+
+      .login-button {
+        height: 55px;
+      }
+    }
+
+    @media (max-height: 700px) {
+
+      .login-card {
+        padding-top: 25px;
+        padding-bottom: 22px;
+      }
+
+      .brand {
+        margin-bottom: 22px;
+      }
+
+      .logo-wrap {
+        transform: scale(.88);
+        margin-bottom: 9px;
+      }
+
+      .welcome {
+        margin-bottom: 18px;
+      }
+
+      .field {
+        margin-bottom: 13px;
+      }
+
+      .secure {
+        margin-top: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="grid"></div>
+
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+
+    <section class="login-card">
+
+      <div class="top-line"></div>
+
+      <div class="brand">
+
+        <!-- Premium Circular NOVE Logo -->
+        <div class="logo-wrap">
+
+          <img
+            src="assets/logo.png"
+            class="logo"
+            alt="NOVE"
+            onerror="this.style.display='none'"
+          >
+
+        </div>
+
+        <div class="brand-name">
+          N<span>O</span>VE
+        </div>
+
+        <div class="brand-subtitle">
+          Secure Digital Platform
+        </div>
+
+      </div>
+
+      <div class="welcome">
+
+        <h2>Welcome back</h2>
+
+        <p>
+          Sign in to your account to continue.
+        </p>
+
+      </div>
+
+      <div
+        id="errorMessage"
+        class="error-box">
+      </div>
+
+      <div
+        id="successMessage"
+        class="success-box">
+      </div>
+
+      <div class="field">
+
+        <div class="field-label">
+          <span>Mobile Number</span>
+        </div>
+
+        <div class="input-box">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect
+                x="7"
+                y="2"
+                width="10"
+                height="20"
+                rx="2"
+              />
+
+              <path d="M11 18h2"/>
+            </svg>
+
+          </div>
+
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputmode="numeric"
+            autocomplete="tel"
+            maxlength="10"
+            placeholder="Enter mobile number"
+          >
+
+        </div>
+
+      </div>
+
+      <div class="field">
+
+        <div class="field-label">
+          <span>Password</span>
+        </div>
+
+        <div class="input-box">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect
+                x="4"
+                y="10"
+                width="16"
+                height="11"
+                rx="2"
+              />
+
+              <path
+                d="M8 10V7a4 4 0 0 1 8 0v3"
+              />
+
+            </svg>
+
+          </div>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+          >
+
+          <button
+            type="button"
+            id="togglePassword"
+            class="toggle-password"
+            aria-label="Show password"
+          >
+
+            <svg
+              id="eyeIcon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+              />
+
+              <circle
+                cx="12"
+                cy="12"
+                r="2.5"
+              />
+
+            </svg>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Login -->
+      <button
+        type="button"
+        id="loginBtn"
+        class="login-button"
+      >
+
+        <span class="button-content">
+
+          <span
+            id="loader"
+            class="loader">
+          </span>
+
+          <span id="loginText">
+            SIGN IN
+          </span>
+
+          <span id="arrow">
+            →
+          </span>
+
+        </span>
+
+      </button>
+
+      <div class="divider">
+        New to NOVE?
+      </div>
+
+      <div class="register">
+
+        Don't have an account?
+
+        <a href="register.html">
+          Create Account
+        </a>
+
+      </div>
+
+      <div class="secure">
+
+        <span class="secure-dot"></span>
+
+        Secure & Protected
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    /* =========================================
+       API
+    ========================================= */
+
+    const API_URL = window.location.origin;
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const phoneInput =
+      document.getElementById("phone");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const loginBtn =
+      document.getElementById("loginBtn");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+    const successMessage =
+      document.getElementById("successMessage");
+
+
+    /* =========================================
+       PASSWORD TOGGLE
+    ========================================= */
+
+    const toggle =
+      document.getElementById("togglePassword");
+
+    const eye =
+      document.getElementById("eyeIcon");
+
+
+    if (toggle && passwordInput) {
+
+      toggle.addEventListener(
+        "click",
+        function () {
+
+          const visible =
+            passwordInput.type === "text";
+
+          passwordInput.type =
+            visible ? "password" : "text";
+
+          toggle.setAttribute(
+            "aria-label",
+            visible
+              ? "Show password"
+              : "Hide password"
+          );
+
+          eye.innerHTML =
+            visible
+
+              ? `
+                <path
+                  d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                />
+
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="2.5"
+                />
+              `
+
+              : `
+                <path d="M3 3l18 18"/>
+
+                <path
+                  d="M10.6 6.2A10.8 10.8 0 0 1 12 6c6.5 0 10 6 10 6a17.4 17.4 0 0 1-3.1 3.5"
+                />
+
+                <path
+                  d="M6.2 6.2C3.5 8 2 12 2 12s3.5 6 10 6c1.4 0 2.7-.3 3.8-.8"
+                />
+              `;
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       MESSAGE HELPERS
+    ========================================= */
+
+    function showError(message) {
+
+      errorMessage.textContent =
+        message || "Something went wrong.";
+
+      errorMessage.style.display =
+        "block";
+
+      successMessage.style.display =
+        "none";
+
+    }
+
+
+    function showSuccess(message) {
+
+      successMessage.textContent =
+        message || "Login successful.";
+
+      successMessage.style.display =
+        "block";
+
+      errorMessage.style.display =
+        "none";
+
+    }
+
+
+    function clearMessages() {
+
+      errorMessage.style.display =
+        "none";
+
+      successMessage.style.display =
+        "none";
+
+    }
+
+
+    /* =========================================
+       LOADING
+    ========================================= */
+
+    function setLoginLoading(isLoading) {
+
+      const text =
+        document.getElementById("loginText");
+
+      const loader =
+        document.getElementById("loader");
+
+      const arrow =
+        document.getElementById("arrow");
+
+
+      loginBtn.disabled =
+        isLoading;
+
+
+      if (isLoading) {
+
+        text.textContent =
+          "SIGNING IN...";
+
+        loader.style.display =
+          "block";
+
+        arrow.style.display =
+          "none";
+
+      } else {
+
+        text.textContent =
+          "SIGN IN";
+
+        loader.style.display =
+          "none";
+
+        arrow.style.display =
+          "inline";
+
+      }
+
+    }
+
+
+    /* =========================================
+       LOGIN
+    ========================================= */
+
+    async function login() {
+
+      clearMessages();
+
+      const phone =
+        phoneInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!phone) {
+
+        showError(
+          "Please enter your mobile number."
+        );
+
+        phoneInput.focus();
+
+        return;
+      }
+
+
+      if (!/^\d{10}$/.test(phone)) {
+
+        showError(
+          "Please enter a valid 10-digit mobile number."
+        );
+
+        phoneInput.focus();
+
+        return;
+      }
+
+
+      if (!password) {
+
+        showError(
+          "Please enter your password."
+        );
+
+        passwordInput.focus();
+
+        return;
+      }
+
+
+      setLoginLoading(true);
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API_URL}/api/login`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              credentials: "include",
+
+              body: JSON.stringify({
+                phone,
+                password
+              })
+            }
+          );
+
+
+        let data = {};
+
+        try {
+
+          data =
+            await response.json();
+
+        } catch {
+
+          data = {};
+
+        }
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            data.error ||
+            "Invalid mobile number or password."
+          );
+
+        }
+
+
+        showSuccess(
+          data.message ||
+          "Login successful. Redirecting..."
+        );
+
+
+        setTimeout(
+          function () {
+
+            window.location.href =
+              "home.html";
+
+          },
+          700
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
+
+
+        if (
+          error instanceof TypeError
+        ) {
+
+          showError(
+            "Unable to connect to NOVE server. Please try again."
+          );
+
+        } else {
+
+          showError(
+            error.message ||
+            "Login failed. Please try again."
+          );
+
+        }
+
+
+        setLoginLoading(false);
+
+      }
+
+    }
+
+
+    /* =========================================
+       LOGIN BUTTON
+    ========================================= */
+
+    loginBtn.addEventListener(
+      "click",
+      login
+    );
+
+
+    /* =========================================
+       ENTER KEY
+    ========================================= */
+
+    phoneInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+
+          passwordInput.focus();
+
+        }
+
+      }
+    );
+
+
+    passwordInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+
+          login();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       MOBILE INPUT
+       NUMBERS ONLY
+    ========================================= */
+
+    phoneInput.addEventListener(
+      "input",
+      function() {
+
+        this.value =
+          this.value
+            .replace(/\D/g, "")
+            .slice(0, 10);
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>

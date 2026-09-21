@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVE | Recharge</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --red: #ff1f3d;
+      --red-dark: #c90024;
+      --red-light: #ff5268;
+      --black: #050507;
+      --white: #ffffff;
+      --muted: #9999a3;
+      --green: #32d583;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 31, 61, 0.18), transparent 35%),
+        radial-gradient(circle at 0% 100%, rgba(201, 0, 36, 0.12), transparent 30%),
+        var(--black);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    .orb {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 31, 61, 0.09);
+      filter: blur(55px);
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    .orb-one {
+      top: -90px;
+      left: -80px;
+      animation: floatOne 7s ease-in-out infinite;
+    }
+
+    .orb-two {
+      right: -90px;
+      bottom: -90px;
+      animation: floatTwo 9s ease-in-out infinite;
+    }
+
+    @keyframes floatOne {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(35px,45px); }
+    }
+
+    @keyframes floatTwo {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(-35px,-40px); }
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 15px 12px 35px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .topbar {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .back-btn {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #fff;
+      text-decoration: none;
+      font-size: 21px;
+      transition: 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,31,61,0.08);
+      border-color: rgba(255,31,61,0.40);
+      transform: translateX(-2px);
+    }
+
+    .brand {
+      text-align: center;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .brand-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header-space {
+      width: 42px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 25px 18px 22px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(27,27,33,0.97),
+          rgba(8,8,11,0.98)
+        );
+      border: 1px solid rgba(255,31,61,0.20);
+      border-radius: 25px;
+      box-shadow:
+        0 25px 70px rgba(0,0,0,0.68),
+        0 0 45px rgba(255,31,61,0.06);
+      animation: cardIn 0.5s ease;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      top: -120px;
+      right: -80px;
+      border-radius: 50%;
+      background: rgba(255,31,61,0.12);
+      filter: blur(35px);
+      pointer-events: none;
+    }
+
+    .recharge-icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      border-radius: 20px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,31,61,0.20),
+          rgba(201,0,36,0.07)
+        );
+      border: 1px solid rgba(255,31,61,0.28);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
+      box-shadow: 0 0 25px rgba(255,31,61,0.12);
+    }
+
+    .title {
+      text-align: center;
+      font-size: 25px;
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .description {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 21px;
+    }
+
+    .minimum-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 14px;
+      margin-bottom: 20px;
+      border-radius: 14px;
+      background: rgba(50,213,131,0.055);
+      border: 1px solid rgba(50,213,131,0.16);
+    }
+
+    .minimum-label {
+      color: #aaaab2;
+      font-size: 12px;
+    }
+
+    .minimum-value {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .section-title {
+      margin-bottom: 11px;
+      color: #eeeeef;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .amount-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-bottom: 19px;
+    }
+
+    .amount-btn {
+      position: relative;
+      overflow: hidden;
+      min-height: 56px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.035);
+      color: #eee;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .amount-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,31,61,0.40);
+      background: rgba(255,31,61,0.07);
+    }
+
+    .amount-btn.active {
+      color: #fff;
+      border-color: var(--red);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,31,61,0.25),
+          rgba(201,0,36,0.12)
+        );
+      box-shadow:
+        0 0 18px rgba(255,31,61,0.15),
+        inset 0 0 20px rgba(255,31,61,0.04);
+    }
+
+    .amount-btn.active::after {
+      content: "✓";
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      color: var(--red-light);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .custom-box {
+      margin-bottom: 20px;
+    }
+
+    .custom-label {
+      display: block;
+      margin-bottom: 9px;
+      color: #b8b8c0;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .rupee {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--red-light);
+      font-size: 17px;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    #customAmount {
+      width: 100%;
+      height: 52px;
+      padding: 0 15px 0 34px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.09);
+      outline: none;
+      background: rgba(255,255,255,0.035);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+    }
+
+    #customAmount::placeholder {
+      color: #666670;
+      font-weight: 500;
+    }
+
+    #customAmount:focus {
+      border-color: rgba(255,31,61,0.65);
+      box-shadow: 0 0 0 3px rgba(255,31,61,0.08);
+    }
+
+    .custom-hint {
+      margin-top: 7px;
+      color: #777780;
+      font-size: 11px;
+    }
+
+    .message {
+      display: none;
+      margin-bottom: 15px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .message.error {
+      display: block;
+      color: #ff8998;
+      background: rgba(255,31,61,0.08);
+      border: 1px solid rgba(255,31,61,0.22);
+    }
+
+    .message.success {
+      display: block;
+      color: #73e6aa;
+      background: rgba(50,213,131,0.08);
+      border: 1px solid rgba(50,213,131,0.20);
+    }
+
+    .selected-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding: 15px;
+      border-radius: 16px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,31,61,0.10),
+          rgba(255,31,61,0.035)
+        );
+      border: 1px solid rgba(255,31,61,0.18);
+    }
+
+    .selected-label {
+      color: #aaaab2;
+      font-size: 12px;
+    }
+
+    .selected-amount {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .pay-btn {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      min-height: 55px;
+      border: none;
+      border-radius: 15px;
+      background:
+        linear-gradient(
+          135deg,
+          var(--red-light),
+          var(--red),
+          var(--red-dark)
+        );
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .7px;
+      cursor: pointer;
+      box-shadow: 0 14px 32px rgba(255,31,61,0.25);
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+    }
+
+    .pay-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.32),
+          transparent
+        );
+      transform: skewX(-20deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -120%; }
+      45%,100% { left: 140%; }
+    }
+
+    .pay-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(255,31,61,0.36);
+    }
+
+    .pay-btn:active {
+      transform: scale(.98);
+    }
+
+    .pay-btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .spinner {
+      display: none;
+      width: 19px;
+      height: 19px;
+      margin-right: 8px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      vertical-align: middle;
+    }
+
+    .pay-btn.loading .spinner {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .secure-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: #6f6f78;
+      font-size: 10px;
+    }
+
+    .secure-note span {
+      color: var(--green);
+    }
+
+    @media (max-width:430px) {
+      .page {
+        padding: 13px 10px 28px;
+      }
+
+      .card {
+        padding: 22px 15px 20px;
+        border-radius: 23px;
+      }
+
+      .title {
+        font-size: 23px;
+      }
+
+      .amount-grid {
+        gap: 8px;
+      }
+
+      .amount-btn {
+        min-height: 54px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width:350px) {
+      .amount-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+
+  <main class="page">
+    <div class="container">
+
+      <header class="topbar">
+
+        <a
+          href="home.html"
+          class="back-btn"
+          aria-label="Back"
+        >
+          ←
+        </a>
+
+        <div class="brand">
+          <div class="brand-title">NOVE</div>
+          <div class="brand-subtitle">Recharge</div>
+        </div>
+
+        <div class="header-space"></div>
+
+      </header>
+
+      <section class="card">
+
+        <div class="recharge-icon">₹</div>
+
+        <h1 class="title">
+          Recharge Account
+        </h1>
+
+        <p class="description">
+          Select your recharge amount and continue to payment.
+        </p>
+
+        <div class="minimum-box">
+          <span class="minimum-label">
+            Minimum Recharge
+          </span>
+
+          <span class="minimum-value">
+            ₹300
+          </span>
+        </div>
+
+        <div class="section-title">
+          Select Recharge Amount
+        </div>
+
+        <div class="amount-grid">
+
+          <button type="button" class="amount-btn" data-amount="1000">
+            ₹1,000
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="300">
+            ₹300
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="600">
+            ₹600
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="2000">
+            ₹2,000
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="1500">
+            ₹1,500
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="2500">
+            ₹2,500
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="3000">
+            ₹3,000
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="4999">
+            ₹4,999
+          </button>
+
+          <button type="button" class="amount-btn" data-amount="6000">
+            ₹6,000
+          </button>
+
+        </div>
+
+        <div class="custom-box">
+
+          <label
+            for="customAmount"
+            class="custom-label"
+          >
+            Or Enter Custom Amount
+          </label>
+
+          <div class="input-wrap">
+
+            <span class="rupee">₹</span>
+
+            <input
+              type="number"
+              id="customAmount"
+              min="300"
+              step="1"
+              inputmode="numeric"
+              placeholder="Enter amount"
+              autocomplete="off"
+            >
+
+          </div>
+
+          <div class="custom-hint">
+            Minimum custom recharge amount is ₹300.
+          </div>
+
+        </div>
+
+        <div
+          id="message"
+          class="message"
+          role="alert"
+        ></div>
+
+        <div class="selected-box">
+
+          <span class="selected-label">
+            Selected Amount
+          </span>
+
+          <span
+            id="selectedAmount"
+            class="selected-amount"
+          >
+            ₹300
+          </span>
+
+        </div>
+
+        <button
+          type="button"
+          id="payBtn"
+          class="pay-btn"
+        >
+
+          <span class="spinner"></span>
+
+          <span class="btn-text">
+            PROCEED TO PAY
+          </span>
+
+        </button>
+
+        <div class="secure-note">
+          <span>●</span>
+          Secure payment processing
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    const MIN_RECHARGE = 300;
+
+    let selectedAmount = 300;
+
+    const amountButtons =
+      document.querySelectorAll(".amount-btn");
+
+    const customAmount =
+      document.getElementById("customAmount");
+
+    const selectedAmountEl =
+      document.getElementById("selectedAmount");
+
+    const payBtn =
+      document.getElementById("payBtn");
+
+    const message =
+      document.getElementById("message");
+
+    const btnText =
+      payBtn.querySelector(".btn-text");
+
+
+    /* =========================
+       URL PARAMETERS
+    ========================= */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const planNameFromUrl =
+      params.get("plan") || "Recharge";
+
+    const amountFromUrl =
+      Number(params.get("amount") || 0);
+
+
+    /* =========================
+       MONEY
+    ========================= */
+
+    function formatMoney(amount) {
+      return "₹" +
+        Number(amount).toLocaleString("en-IN");
+    }
+
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    function showMessage(text, type = "error") {
+      message.textContent = text;
+      message.className =
+        "message " + type;
+    }
+
+
+    function hideMessage() {
+      message.textContent = "";
+      message.className = "message";
+    }
+
+
+    /* =========================
+       SELECTED AMOUNT
+    ========================= */
+
+    function updateSelectedAmount(amount) {
+
+      selectedAmount =
+        Number(amount);
+
+      selectedAmountEl.textContent =
+        formatMoney(selectedAmount);
+    }
+
+
+    /* =========================
+       PRESET BUTTONS
+    ========================= */
+
+    amountButtons.forEach(function(button) {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          const amount =
+            Number(button.dataset.amount);
+
+          if (
+            !Number.isFinite(amount) ||
+            amount < MIN_RECHARGE
+          ) {
+
+            showMessage(
+              "Minimum recharge amount is ₹300."
+            );
+
+            return;
+          }
+
+          hideMessage();
+
+          amountButtons.forEach(
+            function(btn) {
+              btn.classList.remove("active");
+            }
+          );
+
+          button.classList.add("active");
+
+          customAmount.value = "";
+
+          updateSelectedAmount(amount);
+        }
+      );
+
+    });
+
+
+    /* =========================
+       CUSTOM AMOUNT
+    ========================= */
+
+    customAmount.addEventListener(
+      "input",
+      function() {
+
+        const rawValue =
+          customAmount.value;
+
+        amountButtons.forEach(
+          function(btn) {
+            btn.classList.remove("active");
+          }
+        );
+
+        if (!rawValue) {
+
+          hideMessage();
+
+          updateSelectedAmount(300);
+
+          return;
+        }
+
+        const value =
+          Number(rawValue);
+
+        if (
+          !Number.isFinite(value) ||
+          value < MIN_RECHARGE
+        ) {
+
+          showMessage(
+            "Minimum recharge amount is ₹300."
+          );
+
+          updateSelectedAmount(300);
+
+          return;
+        }
+
+        hideMessage();
+
+        updateSelectedAmount(value);
+      }
+    );
+
+
+    /* =========================
+       INITIAL AMOUNT
+    ========================= */
+
+    if (
+      Number.isFinite(amountFromUrl) &&
+      amountFromUrl >= MIN_RECHARGE
+    ) {
+
+      const matchingButton =
+        Array.from(amountButtons).find(
+          function(button) {
+
+            return Number(
+              button.dataset.amount
+            ) === amountFromUrl;
+
+          }
+        );
+
+
+      if (matchingButton) {
+
+        amountButtons.forEach(
+          function(btn) {
+            btn.classList.remove("active");
+          }
+        );
+
+        matchingButton.classList.add("active");
+
+        updateSelectedAmount(
+          amountFromUrl
+        );
+
+      } else {
+
+        customAmount.value =
+          amountFromUrl;
+
+        updateSelectedAmount(
+          amountFromUrl
+        );
+      }
+
+    } else {
+
+      const defaultButton =
+        document.querySelector(
+          '.amount-btn[data-amount="300"]'
+        );
+
+      if (defaultButton) {
+        defaultButton.classList.add("active");
+      }
+
+      updateSelectedAmount(300);
+    }
+
+
+    /* =========================
+       SAFE JSON
+    ========================= */
+
+    async function readJson(response) {
+
+      const text =
+        await response.text();
+
+      if (!text) {
+        return {};
+      }
+
+      try {
+        return JSON.parse(text);
+      } catch (error) {
+        return {};
+      }
+    }
+
+
+    /* =========================
+       WATCHPAYS PAYMENT
+    ========================= */
+
+    payBtn.addEventListener(
+      "click",
+      async function() {
+
+        hideMessage();
+
+        let amount =
+          selectedAmount;
+
+
+        if (customAmount.value) {
+          amount =
+            Number(customAmount.value);
+        }
+
+
+        /* Minimum */
+
+        if (
+          !Number.isFinite(amount) ||
+          amount < MIN_RECHARGE
+        ) {
+
+          showMessage(
+            "Minimum recharge amount is ₹300."
+          );
+
+          return;
+        }
+
+
+        /* Whole number */
+
+        if (
+          !Number.isInteger(amount)
+        ) {
+
+          showMessage(
+            "Please enter a valid whole amount."
+          );
+
+          return;
+        }
+
+
+        /* Loading */
+
+        payBtn.disabled = true;
+
+        payBtn.classList.add("loading");
+
+        btnText.textContent =
+          "PROCESSING...";
+
+
+        try {
+
+          /*
+           * IMPORTANT:
+           * This is the WatchPays endpoint.
+           * Old RS Payment endpoint is removed.
+           */
+
+          const response =
+            await fetch(
+              "/api/watchpays/create-order",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                credentials:
+                  "same-origin",
+
+                body: JSON.stringify({
+
+                  plan:
+                    planNameFromUrl,
+
+                  amount:
+                    amount
+
+                })
+              }
+            );
+
+
+          const data =
+            await readJson(response);
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.message ||
+              data.error ||
+              "Unable to create WatchPays payment."
+            );
+          }
+
+
+          if (!data.success) {
+
+            throw new Error(
+              data.message ||
+              data.error ||
+              "WatchPays payment could not be created."
+            );
+          }
+
+
+          /*
+           * Backend can return:
+           *
+           * payment_url
+           * payUrl
+           */
+
+          const payUrl =
+            data.payment_url ||
+            data.payUrl ||
+            (
+              data.data &&
+              (
+                data.data.payment_url ||
+                data.data.payUrl
+              )
+            );
+
+
+          if (!payUrl) {
+
+            throw new Error(
+              "WatchPays payment URL was not received."
+            );
+          }
+
+
+          /*
+           * Redirect to WatchPays
+           */
+
+          window.location.href =
+            payUrl;
+
+
+        } catch (error) {
+
+          console.error(
+            "WatchPays Recharge error:",
+            error
+          );
+
+          showMessage(
+            error.message ||
+            "Something went wrong. Please try again."
+          );
+
+          payBtn.disabled = false;
+
+          payBtn.classList.remove(
+            "loading"
+          );
+
+          btnText.textContent =
+            "PROCEED TO PAY";
+        }
+
+      }
+    );
+  </script>
+
+</body>
+</html>

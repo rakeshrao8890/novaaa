@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plans</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --red:#ff1744;
+  --red2:#ff4568;
+  --bg:#030304;
+  --card:#111114;
+  --muted:#85858d;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(255,23,68,.22),transparent 35%),
+    linear-gradient(180deg,#09090b,#030304 65%,#010102);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,#000,transparent);
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent);
+}
+
+.page{
+  width:100%;
+  max-width:650px;
+  margin:auto;
+  padding:14px 12px 35px;
+  position:relative;
+  z-index:2;
+}
+
+/* =========================
+   FOUR ACTION BUTTONS
+========================= */
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin:8px 0 22px;
+  animation:actionsIn .7s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes actionsIn{
+  from{
+    opacity:0;
+    transform:translateY(-15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.action{
+  min-height:66px;
+  padding:8px 4px;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  text-decoration:none;
+  color:#fff;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.075);
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  transition:.25s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.action::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:70%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.12),
+    transparent
+  );
+  transform:skewX(-20deg);
+  animation:actionShine 5s infinite;
+}
+
+@keyframes actionShine{
+  0%{left:-120%}
+  35%,100%{left:150%}
+}
+
+.action-icon{
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:rgba(255,23,68,.12);
+  border:1px solid rgba(255,23,68,.18);
+  font-size:15px;
+  position:relative;
+  z-index:1;
+}
+
+.action span{
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.3px;
+  position:relative;
+  z-index:1;
+}
+
+.action:hover{
+  border-color:rgba(255,23,68,.4);
+  transform:translateY(-3px);
+  box-shadow:
+    0 15px 30px rgba(0,0,0,.35),
+    0 0 18px rgba(255,23,68,.08);
+}
+
+.action:active{
+  transform:scale(.94);
+}
+
+/* =========================
+   PLAN TABS
+========================= */
+
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  padding:6px;
+  margin-bottom:22px;
+  border-radius:18px;
+  background:rgba(14,14,16,.9);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
+  position:sticky;
+  top:7px;
+  z-index:20;
+  backdrop-filter:blur(18px);
+}
+
+.tab{
+  min-height:46px;
+  border:0;
+  outline:0;
+  border-radius:13px;
+  cursor:pointer;
+  color:#77777f;
+  background:transparent;
+  font-size:10px;
+  font-weight:900;
+  transition:.25s;
+}
+
+.tab.active{
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    #a9002a,
+    #ff1744,
+    #ff3b61
+  );
+  box-shadow:
+    0 8px 28px rgba(255,23,68,.28),
+    inset 0 1px 0 rgba(255,255,255,.14);
+}
+
+.tab:active{
+  transform:scale(.96);
+}
+
+/* =========================
+   PLAN SECTIONS
+========================= */
+
+.plan-section{
+  display:none;
+  animation:sectionIn .45s cubic-bezier(.22,1,.36,1);
+}
+
+.plan-section.active{
+  display:block;
+}
+
+@keyframes sectionIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:0 2px 13px;
+}
+
+.section-title h3{
+  font-size:18px;
+  font-weight:950;
+}
+
+.count{
+  padding:5px 9px;
+  border-radius:8px;
+  color:#ff7187;
+  font-size:8px;
+  font-weight:900;
+  background:rgba(255,23,68,.07);
+  border:1px solid rgba(255,23,68,.13);
+}
+
+/* =========================
+   PLAN CARDS
+========================= */
+
+.plan-card{
+  position:relative;
+  overflow:hidden;
+  margin-bottom:17px;
+  padding:16px;
+  border-radius:23px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(28,28,32,.98),
+      rgba(8,8,10,.98)
+    );
+  border:1px solid rgba(255,255,255,.075);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.045);
+  animation:cardReveal .7s cubic-bezier(.22,1,.36,1) both;
+  transition:.35s ease;
+}
+
+.plan-card:nth-child(2){animation-delay:.04s}
+.plan-card:nth-child(3){animation-delay:.09s}
+.plan-card:nth-child(4){animation-delay:.14s}
+.plan-card:nth-child(5){animation-delay:.19s}
+.plan-card:nth-child(6){animation-delay:.24s}
+.plan-card:nth-child(7){animation-delay:.29s}
+
+@keyframes cardReveal{
+  0%{
+    opacity:0;
+    transform:translateY(30px) scale(.95);
+    filter:blur(5px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+.plan-card::before{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:-130px;
+  top:-130px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,23,68,.18),
+      transparent 70%
+    );
+  pointer-events:none;
+  animation:glow 5s ease-in-out infinite;
+}
+
+@keyframes glow{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.18)}
+}
+
+.plan-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,23,68,.38);
+}
+
+/* =========================
+   PLAN TOP
+========================= */
+
+.plan-top{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.plan-name{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.plan-icon{
+  width:45px;
+  height:45px;
+  flex:0 0 45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  font-size:20px;
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255,82,104,.24),
+      #18030a
+    );
+  border:1px solid rgba(255,23,68,.3);
+  animation:iconFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+
+.plan-name h4{
+  font-size:17px;
+  font-weight:950;
+}
+
+.plan-name small{
+  display:block;
+  margin-top:4px;
+  color:#707078;
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+.price{
+  text-align:right;
+}
+
+.price small{
+  display:block;
+  color:#686870;
+  font-size:7px;
+  margin-bottom:4px;
+}
+
+.price strong{
+  font-size:21px;
+  font-weight:950;
+}
+
+/* =========================
+   PLAN IMAGE
+========================= */
+
+.plan-image{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-height:330px;
+  min-height:120px;
+  display:block;
+  object-fit:contain;
+  object-position:center;
+  margin:0 auto 15px;
+  border-radius:18px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.045),
+      transparent 70%
+    );
+  border:1px solid rgba(255,255,255,.045);
+  animation:imageFloat 4.5s ease-in-out infinite;
+  transition:.4s ease;
+}
+
+@keyframes imageFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+
+.plan-card:hover .plan-image{
+  transform:scale(1.018) translateY(-2px);
+  filter:drop-shadow(
+    0 10px 22px rgba(255,23,68,.12)
+  );
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:15px;
+}
+
+.stat{
+  min-height:63px;
+  padding:10px 11px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-radius:14px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.018)
+    );
+  border:1px solid rgba(255,255,255,.055);
+}
+
+.stat span{
+  color:#707078;
+  font-size:7px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  margin-bottom:5px;
+}
+
+.stat strong{
+  font-size:14px;
+  font-weight:900;
+}
+
+.stat .income{
+  color:#ff6d84;
+}
+
+/* =========================
+   PLAN BOTTOM
+========================= */
+
+.plan-bottom{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.limit{
+  color:#707078;
+  font-size:9px;
+}
+
+.limit strong{
+  color:#dddde1;
+}
+
+/* =========================
+   SELECT BUTTON
+========================= */
+
+.select-btn{
+  position:relative;
+  overflow:hidden;
+  flex:1;
+  max-width:190px;
+  min-height:46px;
+  border:0;
+  outline:0;
+  border-radius:14px;
+  cursor:pointer;
+  color:#fff;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.7px;
+  background:
+    linear-gradient(
+      135deg,
+      #a9002a,
+      #ff1744,
+      #ff365d
+    );
+  box-shadow:
+    0 10px 25px rgba(255,23,68,.22),
+    inset 0 1px 0 rgba(255,255,255,.13);
+  transition:.22s ease;
+}
+
+.select-btn::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-130%;
+  width:70%;
+  height:100%;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.27),
+      transparent
+    );
+  transform:skewX(-20deg);
+  animation:shine 4s infinite;
+}
+
+@keyframes shine{
+  0%{left:-130%}
+  35%,100%{left:150%}
+}
+
+.select-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 15px 35px rgba(255,23,68,.34);
+}
+
+.select-btn:active{
+  transform:scale(.95);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:430px){
+
+  .page{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .actions{
+    gap:5px;
+  }
+
+  .action{
+    min-height:62px;
+    border-radius:14px;
+  }
+
+  .action-icon{
+    width:28px;
+    height:28px;
+    font-size:14px;
+  }
+
+  .action span{
+    font-size:7px;
+  }
+
+  .plan-card{
+    padding:14px;
+    border-radius:21px;
+  }
+
+  .plan-image{
+    max-height:270px;
+    min-height:100px;
+  }
+
+  .plan-name h4{
+    font-size:16px;
+  }
+
+  .price strong{
+    font-size:19px;
+  }
+}
+
+@media(max-width:350px){
+
+  .actions{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .action{
+    min-height:58px;
+  }
+
+  .plan-bottom{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .limit{
+    text-align:center;
+  }
+
+  .select-btn{
+    width:100%;
+    max-width:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <!-- FOUR MAIN ACTIONS -->
+
+  <div class="actions">
+
+    <a href="./deposit.html" class="action">
+      <div class="action-icon">🔄</div>
+      <span>RECHARGE</span>
+    </a>
+
+    <a href="./withdraw.html" class="action">
+      <div class="action-icon">💸</div>
+      <span>WITHDRAW</span>
+    </a>
+
+    <a href="./refer.html" class="action">
+      <div class="action-icon">👥</div>
+      <span>INVITE</span>
+    </a>
+
+    <a href="./mission.html" class="action">
+      <div class="action-icon">🎯</div>
+      <span>MISSION</span>
+    </a>
+
+  </div>
+
+
+  <!-- VIP / PREMIUM TABS -->
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      onclick="showSection('vip',this)">
+      🔥 VIP PLAN
+    </button>
+
+    <button
+      class="tab"
+      onclick="showSection('premium',this)">
+      👑 PREMIUM PLAN
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       VIP PLANS
+  ========================== -->
+
+  <section id="vip" class="plan-section active">
+
+    <div class="section-title">
+      <h3>🔥 VIP Plans</h3>
+      <span class="count">6 PACKS</span>
+    </div>
+
+
+    <!-- VIP 1 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">🔥</div>
+
+          <div>
+            <h4>VIP 1</h4>
+            <small>VIP STARTER PLAN</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹900</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/vip1.png"
+        class="plan-image"
+        alt="VIP 1">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>2 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹4,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹8,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>5</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 5</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('VIP 1',900)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIP 2 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">🔥</div>
+
+          <div>
+            <h4>VIP 2</h4>
+            <small>VIP BASIC PLAN</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹295</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/vip2.png"
+        class="plan-image"
+        alt="VIP 2">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>45 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹240</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹10,800</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>10</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 10</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('VIP 2',295)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIP 3 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">🔥</div>
+
+          <div>
+            <h4>VIP 3</h4>
+            <small>VIP GROWTH PLAN</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹550</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/vip3.png"
+        class="plan-image"
+        alt="VIP 3">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>10 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹1,400</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹14,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>10</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 10</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('VIP 3',550)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIP 4 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">🔥</div>
+
+          <div>
+            <h4>VIP 4</h4>
+            <small>VIP ADVANCED PLAN</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹1,100</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/vip4.png"
+        class="plan-image"
+        alt="VIP 4">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>7 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹4,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹28,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>10</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 10</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('VIP 4',1100)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIP 5 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">🔥</div>
+
+          <div>
+            <h4>VIP 5</h4>
+            <small>VIP PRO PLAN</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹2,500</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/vip5.png"
+        class="plan-image"
+        alt="VIP 5">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>5 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹7,450</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹37,250</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>5</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 5</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('VIP 5',2500)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIP 6 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">🔥</div>
+
+          <div>
+            <h4>VIP 6</h4>
+            <small>VIP ELITE PLAN</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹4,999</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/vip6.png"
+        class="plan-image"
+        alt="VIP 6">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>2 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹29,999</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹59,998</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>1</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 1</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('VIP 6',4999)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PREMIUM PLANS
+  ========================== -->
+
+  <section id="premium" class="plan-section">
+
+    <div class="section-title">
+      <h3>👑 Premium Plans</h3>
+      <span class="count">3 PACKS</span>
+    </div>
+
+
+    <!-- PREMIUM 1 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">👑</div>
+
+          <div>
+            <h4>Premium 1</h4>
+            <small>PREMIUM STARTER</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹999</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/premium1.png"
+        class="plan-image"
+        alt="Premium 1">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>3 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹1,500</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹6,500</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>5</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 5</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('Premium 1',999)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- PREMIUM 2 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">👑</div>
+
+          <div>
+            <h4>Premium 2</h4>
+            <small>PREMIUM ADVANCED</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹3,000</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/premium2.png"
+        class="plan-image"
+        alt="Premium 2">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>8 Days</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹2,500</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹24,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>10</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 10</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('Premium 2',3000)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- PREMIUM 3 -->
+
+    <div class="plan-card">
+
+      <div class="plan-top">
+
+        <div class="plan-name">
+
+          <div class="plan-icon">👑</div>
+
+          <div>
+            <h4>Premium 3</h4>
+            <small>PREMIUM ELITE</small>
+          </div>
+
+        </div>
+
+        <div class="price">
+          <small>PLAN PRICE</small>
+          <strong>₹6,000</strong>
+        </div>
+
+      </div>
+
+      <img
+        src="assets/premium3.png"
+        class="plan-image"
+        alt="Premium 3">
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>Duration</span>
+          <strong>1 Day</strong>
+        </div>
+
+        <div class="stat">
+          <span>Daily Income</span>
+          <strong class="income">₹15,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Total Income</span>
+          <strong>₹15,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>Limit</span>
+          <strong>1</strong>
+        </div>
+
+      </div>
+
+      <div class="plan-bottom">
+
+        <div class="limit">
+          Purchased: <strong>0 / 1</strong>
+        </div>
+
+        <button
+          class="select-btn"
+          onclick="selectPlan('Premium 3',6000)">
+          SELECT PLAN
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+/* =========================
+   PLAN TAB LOGIC
+========================= */
+
+function showSection(sectionId,button){
+
+  document.querySelectorAll(".plan-section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
+
+  document.querySelectorAll(".tab")
+    .forEach(tab=>{
+      tab.classList.remove("active");
+    });
+
+  document.getElementById(sectionId)
+    .classList.add("active");
+
+  button.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================
+   SELECT PLAN LOGIC
+========================= */
+
+function selectPlan(planName,amount){
+
+  const params = new URLSearchParams();
+
+  params.set("plan",planName);
+  params.set("amount",amount);
+
+  window.location.href =
+    "deposit.html?" + params.toString();
+}
+
+</script>
+
+</body>
+</html>

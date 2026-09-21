@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVE | Welcome</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --red: #ff1f3d;
+      --red-dark: #c90024;
+      --red-light: #ff5268;
+      --black: #050507;
+      --card: rgba(15, 15, 19, 0.92);
+      --text: #ffffff;
+      --muted: #9d9da5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(255, 31, 61, 0.20),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 0% 100%,
+          rgba(201, 0, 36, 0.13),
+          transparent 30%
+        ),
+        #050507;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -5;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.018) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.018) 1px,
+          transparent 1px
+        );
+
+      background-size: 34px 34px;
+
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+      );
+    }
+
+    /* Floating red lights */
+    .orb {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 31, 61, 0.10);
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    .orb-one {
+      top: -90px;
+      left: -80px;
+      animation: orbOne 7s ease-in-out infinite;
+    }
+
+    .orb-two {
+      right: -90px;
+      bottom: -90px;
+      animation: orbTwo 9s ease-in-out infinite;
+    }
+
+    @keyframes orbOne {
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(35px, 45px);
+      }
+    }
+
+    @keyframes orbTwo {
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-35px, -40px);
+      }
+    }
+
+    /* Main */
+    .hero {
+      min-height: 100vh;
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 22px 15px;
+
+      position: relative;
+    }
+
+    /* Main card */
+    .hero-box {
+      width: 100%;
+      max-width: 470px;
+
+      padding: 38px 24px 30px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(28, 28, 34, 0.96),
+          rgba(8, 8, 11, 0.97)
+        );
+
+      border: 1px solid rgba(255, 31, 61, 0.23);
+      border-radius: 28px;
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.70),
+        0 0 50px rgba(255, 31, 61, 0.07);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      animation: cardEnter 0.8s ease forwards;
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ==================================================
+       PREMIUM CIRCULAR NOVE LOGO
+       ================================================== */
+
+    .logo-wrap {
+      position: relative;
+
+      width: 142px;
+      height: 142px;
+
+      margin: 0 auto 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          rgba(255, 255, 255, 0.13),
+          rgba(255, 31, 61, 0.10) 35%,
+          rgba(8, 8, 11, 0.98) 72%
+        );
+
+      border: 2px solid rgba(255, 31, 61, 0.65);
+
+      box-shadow:
+        0 0 0 5px rgba(255, 31, 61, 0.055),
+        0 0 0 10px rgba(255, 31, 61, 0.025),
+        0 12px 35px rgba(0, 0, 0, 0.65),
+        0 0 35px rgba(255, 31, 61, 0.28),
+        inset 0 0 25px rgba(255, 31, 61, 0.10);
+
+      overflow: hidden;
+
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    /* Premium rotating ring */
+    .logo-wrap::before {
+      content: "";
+
+      position: absolute;
+      inset: -2px;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 35deg,
+          rgba(255, 82, 104, 0.95) 70deg,
+          transparent 110deg,
+          transparent 190deg,
+          rgba(255, 31, 61, 0.85) 235deg,
+          transparent 280deg,
+          transparent 360deg
+        );
+
+      animation: logoRing 5s linear infinite;
+
+      z-index: 0;
+    }
+
+    /* Inner circular surface */
+    .logo-wrap::after {
+      content: "";
+
+      position: absolute;
+      inset: 5px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 30% 25%,
+          rgba(255, 255, 255, 0.08),
+          rgba(14, 14, 18, 0.98) 60%
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      z-index: 1;
+    }
+
+    .logo {
+      position: relative;
+
+      width: 78%;
+      height: 78%;
+
+      display: block;
+
+      object-fit: contain;
+      object-position: center;
+
+      background: transparent;
+      border: none;
+
+      border-radius: 50%;
+
+      z-index: 2;
+
+      filter:
+        drop-shadow(0 0 7px rgba(255, 31, 61, 0.75))
+        drop-shadow(0 0 18px rgba(255, 31, 61, 0.35));
+    }
+
+    @keyframes logoFloat {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    @keyframes logoRing {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* NOVE heading */
+    h1 {
+      margin: 0 0 11px;
+
+      font-size: 40px;
+      line-height: 1;
+
+      font-weight: 900;
+      letter-spacing: 4px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff 0%,
+          #ffffff 45%,
+          var(--red-light) 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+    .subtitle {
+      margin-bottom: 30px;
+
+      color: var(--muted);
+
+      font-size: 15px;
+      letter-spacing: 0.4px;
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 12px;
+
+      margin-bottom: 28px;
+    }
+
+    .feature {
+      position: relative;
+      overflow: hidden;
+
+      min-height: 58px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 14px 8px;
+
+      border-radius: 16px;
+
+      background: rgba(255, 255, 255, 0.035);
+
+      border: 1px solid rgba(255, 255, 255, 0.075);
+
+      color: #eeeeee;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-3px);
+
+      border-color: rgba(255, 31, 61, 0.40);
+
+      background: rgba(255, 31, 61, 0.065);
+    }
+
+    .feature::after {
+      content: "";
+
+      position: absolute;
+
+      width: 70px;
+      height: 70px;
+
+      top: -45px;
+      right: -35px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 31, 61, 0.13);
+
+      filter: blur(12px);
+    }
+
+    /* Telegram Support */
+    .support-feature {
+      text-decoration: none;
+      cursor: pointer;
+      color: #eeeeee;
+    }
+
+    .support-feature:hover {
+      color: #ffffff;
+
+      border-color: rgba(255, 31, 61, 0.55);
+
+      background: rgba(255, 31, 61, 0.10);
+
+      transform: translateY(-3px);
+    }
+
+    .support-feature:active {
+      transform: scale(0.98);
+    }
+
+    /* Get Started */
+    .get-start {
+      position: relative;
+      overflow: hidden;
+
+      width: 100%;
+      min-height: 55px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--red-light),
+          var(--red),
+          var(--red-dark)
+        );
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      font-size: 16px;
+      font-weight: 800;
+
+      letter-spacing: 0.8px;
+
+      box-shadow:
+        0 12px 30px rgba(255, 31, 61, 0.27);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .get-start::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -130%;
+
+      width: 70%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+
+      animation: buttonShine 3.2s infinite;
+    }
+
+    @keyframes buttonShine {
+      0% {
+        left: -130%;
+      }
+
+      45%,
+      100% {
+        left: 140%;
+      }
+    }
+
+    .get-start:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 17px 40px rgba(255, 31, 61, 0.38);
+    }
+
+    .get-start:active {
+      transform: scale(0.98);
+    }
+
+    /* Register */
+    .register-link {
+      display: inline-block;
+
+      margin-top: 20px;
+
+      color: var(--red-light);
+
+      text-decoration: none;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .register-link:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Security */
+    .secure-line {
+      margin-top: 25px;
+
+      color: #707078;
+
+      font-size: 11px;
+
+      letter-spacing: 0.4px;
+    }
+
+    .secure-dot {
+      display: inline-block;
+
+      width: 6px;
+      height: 6px;
+
+      margin-right: 6px;
+
+      border-radius: 50%;
+
+      background: #32d583;
+
+      box-shadow:
+        0 0 10px rgba(50, 213, 131, 0.65);
+    }
+
+    /* Mobile */
+    @media (max-width: 420px) {
+      .hero {
+        padding: 16px 11px;
+      }
+
+      .hero-box {
+        padding: 32px 17px 26px;
+        border-radius: 24px;
+      }
+
+      .logo-wrap {
+        width: 122px;
+        height: 122px;
+        margin-bottom: 19px;
+      }
+
+      .logo {
+        width: 77%;
+        height: 77%;
+      }
+
+      h1 {
+        font-size: 35px;
+        letter-spacing: 3px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        margin-bottom: 26px;
+      }
+
+      .features {
+        gap: 9px;
+        margin-bottom: 25px;
+      }
+
+      .feature {
+        min-height: 54px;
+        padding: 13px 6px;
+        font-size: 12px;
+      }
+
+      .get-start {
+        min-height: 53px;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 340px) {
+      .hero-box {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .logo-wrap {
+        width: 108px;
+        height: 108px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .feature {
+        font-size: 11px;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background effects -->
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+
+  <!-- Welcome -->
+  <main class="hero">
+
+    <section class="hero-box">
+
+      <!-- Premium Circular NOVE Logo -->
+      <div class="logo-wrap">
+        <img
+          src="assets/logo.png"
+          alt="NOVE Logo"
+          class="logo"
+        >
+      </div>
+
+      <!-- Brand -->
+      <h1>NOVE</h1>
+
+      <p class="subtitle">
+        Welcome to NOVE
+      </p>
+
+      <!-- Features -->
+      <div class="features">
+
+        <div class="feature">
+          ⚡ Easy Register
+        </div>
+
+        <div class="feature">
+          🔐 Secure Login
+        </div>
+
+        <div class="feature">
+          💎 Multiple Plans
+        </div>
+
+        <!-- Telegram 24/7 Support -->
+        <a
+          href="https://t.me/nova_support56"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="feature support-feature"
+          aria-label="Open NOVE 24/7 Telegram Support"
+        >
+          🎧 24/7 Support
+        </a>
+
+      </div>
+
+      <!-- Login -->
+      <a
+        href="login.html"
+        class="get-start"
+      >
+        GET START
+      </a>
+
+      <!-- Register -->
+      <a
+        href="register.html"
+        class="register-link"
+      >
+        Create New Account →
+      </a>
+
+      <!-- Security -->
+      <div class="secure-line">
+        <span class="secure-dot"></span>
+        Secure &amp; protected access
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

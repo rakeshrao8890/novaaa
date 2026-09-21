@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVE | Create Account</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --red: #ff1744;
+      --red2: #ff3d63;
+      --dark-red: #b9002d;
+      --bg: #050506;
+      --card: rgba(18, 18, 20, .90);
+      --text: #fff;
+      --muted: #85858c;
+      --border: rgba(255,255,255,.08);
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--bg);
+
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       PAGE BACKGROUND
+    ========================== */
+
+    .page {
+      min-height: 100vh;
+      min-height: 100svh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px 15px;
+
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(255,23,68,.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          rgba(185,0,45,.10),
+          transparent 32%
+        ),
+        #050506;
+    }
+
+    /* Grid */
+
+    .grid {
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.022) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.022) 1px,
+          transparent 1px
+        );
+
+      background-size: 55px 55px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 92%
+        );
+    }
+
+    /* Animated glow */
+
+    .orb {
+      position: absolute;
+
+      border-radius: 50%;
+
+      filter: blur(85px);
+
+      pointer-events: none;
+    }
+
+    .orb-one {
+      width: 350px;
+      height: 350px;
+
+      top: -190px;
+      right: -120px;
+
+      background:
+        rgba(255,23,68,.16);
+
+      animation:
+        orbOne 8s ease-in-out infinite;
+    }
+
+    .orb-two {
+      width: 310px;
+      height: 310px;
+
+      bottom: -190px;
+      left: -130px;
+
+      background:
+        rgba(185,0,45,.13);
+
+      animation:
+        orbTwo 9s ease-in-out infinite;
+    }
+
+    @keyframes orbOne {
+      0%,100% {
+        transform: translate(0,0);
+      }
+
+      50% {
+        transform: translate(-45px,55px);
+      }
+    }
+
+    @keyframes orbTwo {
+      0%,100% {
+        transform: translate(0,0);
+      }
+
+      50% {
+        transform: translate(50px,-40px);
+      }
+    }
+
+    /* =========================
+       REGISTER CARD
+    ========================== */
+
+    .register-card {
+      width: 100%;
+      max-width: 440px;
+
+      position: relative;
+      z-index: 5;
+
+      padding: 34px 30px 27px;
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(27,27,30,.95),
+          rgba(9,9,10,.91)
+        );
+
+      border:
+        1px solid rgba(255,255,255,.09);
+
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.70),
+        0 0 70px rgba(255,23,68,.07),
+        inset 0 1px 0 rgba(255,255,255,.05);
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+
+      animation:
+        cardIn .75s cubic-bezier(.2,.8,.2,1);
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform:
+          translateY(35px)
+          scale(.96);
+      }
+
+      to {
+        opacity: 1;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
+
+    /* Top red line */
+
+    .top-line {
+      position: absolute;
+
+      top: 0;
+      left: 14%;
+      right: 14%;
+
+      height: 2px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--red),
+          transparent
+        );
+
+      box-shadow:
+        0 0 18px
+        rgba(255,23,68,.75);
+    }
+
+    /* =========================
+       BRAND
+    ========================== */
+
+    .brand {
+      text-align: center;
+
+      margin-bottom: 25px;
+    }
+
+    .logo-wrap {
+      width: 75px;
+      height: 75px;
+
+      position: relative;
+
+      margin: 0 auto 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-ring {
+      position: absolute;
+
+      inset: -7px;
+
+      border-radius: 23px;
+
+      border:
+        1px solid
+        rgba(255,23,68,.48);
+
+      box-shadow:
+        0 0 28px
+        rgba(255,23,68,.17);
+
+      animation:
+        ringPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes ringPulse {
+      0%,100% {
+        transform: scale(1);
+        opacity: .8;
+      }
+
+      50% {
+        transform: scale(1.07);
+        opacity: .35;
+      }
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+
+      object-fit: contain;
+
+      border-radius: 21px;
+
+      position: relative;
+      z-index: 2;
+
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.4);
+    }
+
+    .brand-name {
+      font-size: 30px;
+
+      font-weight: 900;
+
+      letter-spacing: 5px;
+    }
+
+    .brand-name span {
+      color: var(--red);
+
+      text-shadow:
+        0 0 22px
+        rgba(255,23,68,.35);
+    }
+
+    .brand-subtitle {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      letter-spacing: .6px;
+    }
+
+    /* =========================
+       HEADING
+    ========================== */
+
+    .heading {
+      margin-bottom: 21px;
+    }
+
+    .heading h2 {
+      font-size: 21px;
+
+      font-weight: 800;
+
+      margin-bottom: 6px;
+    }
+
+    .heading p {
+      color: #77777f;
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+
+    /* =========================
+       FORM
+    ========================== */
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #d0d0d5;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      letter-spacing: .2px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 18px;
+
+      color: #696970;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      pointer-events: none;
+
+      transition: .25s;
+    }
+
+    .input-wrap:focus-within .input-icon {
+      color: var(--red);
+    }
+
+    .input-wrap input {
+      width: 100%;
+
+      height: 52px;
+
+      padding:
+        0 46px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      outline: none;
+
+      background:
+        rgba(255,255,255,.045);
+
+      color: white;
+
+      font-size: 13px;
+
+      transition:
+        border .25s,
+        box-shadow .25s,
+        background .25s;
+    }
+
+    .input-wrap input:hover {
+      border-color:
+        rgba(255,255,255,.13);
+    }
+
+    .input-wrap input:focus {
+      border-color:
+        rgba(255,23,68,.65);
+
+      background:
+        rgba(255,23,68,.035);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(255,23,68,.07);
+    }
+
+    .input-wrap input::placeholder {
+      color: #58585f;
+    }
+
+    /* Password toggle */
+
+    .password-toggle {
+      position: absolute;
+
+      right: 8px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 37px;
+      height: 37px;
+
+      border: 0;
+
+      border-radius: 10px;
+
+      background: transparent;
+
+      color: #717179;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: .2s;
+    }
+
+    .password-toggle:hover {
+      background:
+        rgba(255,255,255,.06);
+
+      color: white;
+    }
+
+    /* =========================
+       REGISTER BUTTON
+    ========================== */
+
+    .register-btn {
+      width: 100%;
+      height: 55px;
+
+      margin-top: 5px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      border: 0;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e90035,
+          #ff1744 48%,
+          #ff3d63
+        );
+
+      color: white;
+
+      font-size: 14px;
+
+      font-weight: 850;
+
+      letter-spacing: .8px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 15px 32px
+        rgba(255,23,68,.24);
+
+      transition:
+        transform .2s,
+        box-shadow .2s;
+    }
+
+    .register-btn::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -100%;
+
+      width: 60%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.27),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+
+      animation:
+        shine 3.5s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -100%;
+      }
+
+      45%,100% {
+        left: 150%;
+      }
+    }
+
+    .register-btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 20px 40px
+        rgba(255,23,68,.32);
+    }
+
+    .register-btn:active {
+      transform: scale(.975);
+    }
+
+    .register-btn:disabled {
+      opacity: .65;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+    .btn-content {
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+    }
+
+    .loader {
+      width: 16px;
+      height: 16px;
+
+      border-radius: 50%;
+
+      border:
+        2px solid
+        rgba(255,255,255,.35);
+
+      border-top-color: white;
+
+      animation:
+        spin .7s linear infinite;
+
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       MESSAGE
+    ========================== */
+
+    .message {
+      display: none;
+
+      margin-top: 14px;
+
+      padding: 11px 13px;
+
+      border-radius: 12px;
+
+      font-size: 11px;
+
+      line-height: 1.45;
+
+      text-align: center;
+
+      animation:
+        messageIn .3s ease;
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.error {
+      display: block;
+
+      color: #ff8197;
+
+      background:
+        rgba(255,23,68,.075);
+
+      border:
+        1px solid
+        rgba(255,23,68,.22);
+    }
+
+    .message.success {
+      display: block;
+
+      color: #6ee7a2;
+
+      background:
+        rgba(34,197,94,.07);
+
+      border:
+        1px solid
+        rgba(34,197,94,.18);
+    }
+
+    /* =========================
+       DIVIDER
+    ========================== */
+
+    .divider {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin: 20px 0 17px;
+
+      color: #4e4e54;
+
+      font-size: 8px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background:
+        rgba(255,255,255,.07);
+    }
+
+    /* =========================
+       LOGIN
+    ========================== */
+
+    .login-text {
+      text-align: center;
+
+      color: #77777e;
+
+      font-size: 11px;
+    }
+
+    .login-text a {
+      color: white;
+
+      text-decoration: none;
+
+      font-weight: 800;
+
+      margin-left: 4px;
+
+      transition: .2s;
+    }
+
+    .login-text a:hover {
+      color: var(--red);
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .secure {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 6px;
+
+      margin-top: 19px;
+
+      color: #4e4e54;
+
+      font-size: 8px;
+
+      letter-spacing: .5px;
+    }
+
+    .secure-dot {
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      background: #32d583;
+
+      box-shadow:
+        0 0 8px
+        rgba(50,213,131,.5);
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 480px) {
+
+      .page {
+        padding: 15px 12px;
+      }
+
+      .register-card {
+        padding:
+          29px 19px 25px;
+
+        border-radius: 25px;
+      }
+
+      .logo-wrap {
+        width: 70px;
+        height: 70px;
+      }
+
+      .logo {
+        width: 65px;
+        height: 65px;
+      }
+
+      .brand-name {
+        font-size: 27px;
+      }
+
+      .heading h2 {
+        font-size: 20px;
+      }
+
+      .input-wrap input {
+        height: 51px;
+      }
+
+      .register-btn {
+        height: 54px;
+      }
+    }
+
+    @media (max-height: 720px) {
+
+      .page {
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+
+      .register-card {
+        padding-top: 24px;
+        padding-bottom: 20px;
+      }
+
+      .brand {
+        margin-bottom: 18px;
+      }
+
+      .logo-wrap {
+        transform: scale(.88);
+        margin-bottom: 7px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+
+      .input-wrap input {
+        height: 48px;
+      }
+
+      .register-btn {
+        height: 51px;
+      }
+
+      .secure {
+        margin-top: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+  <div class="grid"></div>
+
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+
+
+  <div class="register-card">
+
+    <div class="top-line"></div>
+
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+      <div class="logo-wrap">
+
+        <div class="logo-ring"></div>
+
+        <img
+          src="assets/logo.png"
+          alt="NOVE Logo"
+          class="logo"
+        >
+
+      </div>
+
+      <div class="brand-name">
+        N<span>O</span>VE
+      </div>
+
+      <div class="brand-subtitle">
+        Secure Digital Platform
+      </div>
+
+    </div>
+
+
+    <!-- HEADING -->
+
+    <div class="heading">
+
+      <h2>
+        Create your account
+      </h2>
+
+      <p>
+        Join NOVE and set up your account in a few simple steps.
+      </p>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form id="registerForm">
+
+
+      <!-- NAME -->
+
+      <div class="form-group">
+
+        <label for="name">
+          Full Name
+        </label>
+
+        <div class="input-wrap">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <circle
+                cx="12"
+                cy="8"
+                r="4"
+              />
+
+              <path
+                d="M4 21c.8-4 3.5-6 8-6s7.2 2 8 6"
+              />
+            </svg>
+
+          </div>
+
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- PHONE -->
+
+      <div class="form-group">
+
+        <label for="phone">
+          Mobile Number
+        </label>
+
+        <div class="input-wrap">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect
+                x="7"
+                y="2"
+                width="10"
+                height="20"
+                rx="2"
+              />
+
+              <path d="M11 18h2"/>
+            </svg>
+
+          </div>
+
+          <input
+            type="tel"
+            id="phone"
+            placeholder="10-digit mobile number"
+            maxlength="10"
+            inputmode="numeric"
+            autocomplete="tel"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <div class="input-wrap">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect
+                x="4"
+                y="10"
+                width="16"
+                height="11"
+                rx="2"
+              />
+
+              <path
+                d="M8 10V7a4 4 0 0 1 8 0v3"
+              />
+            </svg>
+
+          </div>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Minimum 6 characters"
+            minlength="6"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            type="button"
+            class="password-toggle"
+            id="togglePassword"
+            aria-label="Show password"
+          >
+            👁
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONFIRM PASSWORD -->
+
+      <div class="form-group">
+
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <div class="input-wrap">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                d="M5 12.5 9.5 17 19 7.5"
+              />
+            </svg>
+
+          </div>
+
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            autocomplete="new-password"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- REFERRAL -->
+
+      <div class="form-group">
+
+        <label for="referralCode">
+          Referral Code
+          <span style="color:#626269;font-weight:500;">
+            (Optional)
+          </span>
+        </label>
+
+        <div class="input-wrap">
+
+          <div class="input-icon">
+
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <circle
+                cx="9"
+                cy="8"
+                r="3"
+              />
+
+              <circle
+                cx="17"
+                cy="10"
+                r="2.5"
+              />
+
+              <path
+                d="M3 20c.6-3.2 2.7-5 6-5s5.4 1.8 6 5"
+              />
+
+              <path
+                d="M15 16c2.8-.1 4.8 1.2 5.5 4"
+              />
+            </svg>
+
+          </div>
+
+          <input
+            type="text"
+            id="referralCode"
+            placeholder="Enter referral code"
+            maxlength="30"
+            autocomplete="off"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- REGISTER BUTTON -->
+
+      <button
+        type="submit"
+        class="register-btn"
+        id="registerBtn"
+      >
+
+        <span class="btn-content">
+
+          <span
+            class="loader"
+            id="loader">
+          </span>
+
+          <span id="buttonText">
+            CREATE ACCOUNT
+          </span>
+
+          <span id="arrow">
+            →
+          </span>
+
+        </span>
+
+      </button>
+
+
+      <!-- MESSAGE -->
+
+      <div
+        id="message"
+        class="message">
+      </div>
+
+    </form>
+
+
+    <!-- DIVIDER -->
+
+    <div class="divider">
+      Already registered?
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <div class="login-text">
+
+      Already have an account?
+
+      <a href="login.html">
+        Login
+      </a>
+
+    </div>
+
+
+    <!-- SECURITY -->
+
+    <div class="secure">
+
+      <span class="secure-dot"></span>
+
+      Secure & Protected
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  /* =========================
+     REFERRAL CODE
+  ========================== */
+
+  const referralInput =
+    document.getElementById("referralCode");
+
+  const urlParams =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const referralFromUrl =
+    urlParams.get("ref");
+
+  if (referralFromUrl) {
+
+    referralInput.value =
+      referralFromUrl.toUpperCase();
+
+  }
+
+
+  /* =========================
+     ELEMENTS
+  ========================== */
+
+  const registerForm =
+    document.getElementById("registerForm");
+
+  const registerBtn =
+    document.getElementById("registerBtn");
+
+  const message =
+    document.getElementById("message");
+
+  const buttonText =
+    document.getElementById("buttonText");
+
+  const loader =
+    document.getElementById("loader");
+
+  const arrow =
+    document.getElementById("arrow");
+
+
+  /* =========================
+     PASSWORD TOGGLE
+  ========================== */
+
+  const password =
+    document.getElementById("password");
+
+  const confirmPassword =
+    document.getElementById("confirmPassword");
+
+  const togglePassword =
+    document.getElementById("togglePassword");
+
+
+  togglePassword.addEventListener(
+    "click",
+    function() {
+
+      const isPassword =
+        password.type === "password";
+
+      password.type =
+        isPassword
+          ? "text"
+          : "password";
+
+      confirmPassword.type =
+        isPassword
+          ? "text"
+          : "password";
+
+      togglePassword.textContent =
+        isPassword
+          ? "🙈"
+          : "👁";
+
+    }
+  );
+
+
+  /* =========================
+     REGISTER
+  ========================== */
+
+  registerForm.addEventListener(
+    "submit",
+    async function(e) {
+
+      e.preventDefault();
+
+
+      const name =
+        document
+          .getElementById("name")
+          .value
+          .trim();
+
+
+      const phone =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
+
+
+      const passwordValue =
+        password.value;
+
+
+      const confirmPasswordValue =
+        confirmPassword.value;
+
+
+      const referralCode =
+        referralInput
+          .value
+          .trim()
+          .toUpperCase();
+
+
+      /* Reset message */
+
+      message.className = "message";
+
+      message.textContent = "";
+
+
+      /* =========================
+         NAME VALIDATION
+      ========================== */
+
+      if (name.length < 2) {
+
+        message.textContent =
+          "Please enter your full name.";
+
+        message.className =
+          "message error";
+
+        return;
+
+      }
+
+
+      /* =========================
+         PHONE VALIDATION
+      ========================== */
+
+      if (!/^[0-9]{10}$/.test(phone)) {
+
+        message.textContent =
+          "Please enter a valid 10-digit mobile number.";
+
+        message.className =
+          "message error";
+
+        return;
+
+      }
+
+
+      /* =========================
+         PASSWORD
+      ========================== */
+
+      if (passwordValue.length < 6) {
+
+        message.textContent =
+          "Password must be at least 6 characters.";
+
+        message.className =
+          "message error";
+
+        return;
+
+      }
+
+
+      /* =========================
+         CONFIRM PASSWORD
+      ========================== */
+
+      if (
+        passwordValue !==
+        confirmPasswordValue
+      ) {
+
+        message.textContent =
+          "Passwords do not match.";
+
+        message.className =
+          "message error";
+
+        return;
+
+      }
+
+
+      /* =========================
+         LOADING
+      ========================== */
+
+      registerBtn.disabled = true;
+
+      buttonText.textContent =
+        "CREATING ACCOUNT...";
+
+      arrow.style.display =
+        "none";
+
+      loader.style.display =
+        "block";
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/register",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              credentials: "include",
+
+              body: JSON.stringify({
+                name: name,
+                phone: phone,
+                password: passwordValue,
+                referralCode:
+                  referralCode || null
+              })
+            }
+          );
+
+
+        const contentType =
+          response.headers.get(
+            "content-type"
+          ) || "";
+
+
+        let data = {};
+
+
+        if (
+          contentType.includes(
+            "application/json"
+          )
+        ) {
+
+          data =
+            await response.json();
+
+        } else {
+
+          const text =
+            await response.text();
+
+          throw new Error(
+            text ||
+            "Registration failed."
+          );
+
+        }
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Registration failed."
+          );
+
+        }
+
+
+        /* =========================
+           SUCCESS
+        ========================== */
+
+        message.textContent =
+          "Registration successful! Your referral code is " +
+          (
+            data.referralCode ||
+            "created successfully."
+          );
+
+        message.className =
+          "message success";
+
+
+        buttonText.textContent =
+          "ACCOUNT CREATED ✓";
+
+
+        loader.style.display =
+          "none";
+
+
+        arrow.style.display =
+          "inline";
+
+
+        setTimeout(
+          function() {
+
+            window.location.href =
+              "login.html";
+
+          },
+          1500
+        );
+
+
+      } catch (error) {
+
+        message.textContent =
+          error.message ||
+          "Unable to connect to server.";
+
+        message.className =
+          "message error";
+
+
+      } finally {
+
+        /*
+          Don't immediately reset
+          successful state.
+        */
+
+        if (
+          !message.classList.contains(
+            "success"
+          )
+        ) {
+
+          registerBtn.disabled =
+            false;
+
+          buttonText.textContent =
+            "CREATE ACCOUNT";
+
+          arrow.style.display =
+            "inline";
+
+          loader.style.display =
+            "none";
+
+        }
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>

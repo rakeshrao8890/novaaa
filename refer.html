@@ -97,10 +97,6 @@
         );
     }
 
-    /* =================================
-       CONTAINER
-    ================================= */
-
     .container {
       position: relative;
       z-index: 1;
@@ -115,10 +111,6 @@
         14px
         55px;
     }
-
-    /* =================================
-       HEADER
-    ================================= */
 
     .header {
       position: sticky;
@@ -219,10 +211,6 @@
       width: 42px;
     }
 
-    /* =================================
-       CARD
-    ================================= */
-
     .card {
       position: relative;
       overflow: hidden;
@@ -282,10 +270,6 @@
       animation-delay: .20s;
     }
 
-    /* =================================
-       CARD TITLE
-    ================================= */
-
     .title-row {
       display: flex;
       align-items: center;
@@ -336,10 +320,6 @@
 
       line-height: 1.6;
     }
-
-    /* =================================
-       REFERRAL CODE
-    ================================= */
 
     .code-box {
       position: relative;
@@ -425,10 +405,6 @@
     .copy-btn:active {
       transform: translateY(0);
     }
-
-    /* =================================
-       LINK
-    ================================= */
 
     .link-box {
       padding: 13px;
@@ -526,10 +502,6 @@
         rgba(255,23,68,0.30);
     }
 
-    /* =================================
-       MESSAGE
-    ================================= */
-
     .message {
       min-height: 18px;
 
@@ -549,10 +521,6 @@
     .message.error {
       color: #ff7189;
     }
-
-    /* =================================
-       STATS
-    ================================= */
 
     .stats {
       display: grid;
@@ -638,10 +606,6 @@
       letter-spacing: .5px;
     }
 
-    /* =================================
-       MEMBERS
-    ================================= */
-
     .member {
       display: flex;
       align-items: center;
@@ -717,10 +681,6 @@
       font-size: 11px;
     }
 
-    /* =================================
-       EMPTY / LOADING / ERROR
-    ================================= */
-
     .empty,
     .loading {
       padding: 30px 10px;
@@ -791,10 +751,6 @@
       line-height: 1.5;
     }
 
-    /* =================================
-       ANIMATIONS
-    ================================= */
-
     @keyframes cardIn {
       from {
         opacity: 0;
@@ -824,10 +780,6 @@
         transform: rotate(360deg);
       }
     }
-
-    /* =================================
-       MOBILE
-    ================================= */
 
     @media (max-width: 480px) {
 
@@ -893,10 +845,6 @@
 
   <div class="container">
 
-    <!-- =========================
-         HEADER
-    ========================= -->
-
     <div class="header">
 
       <a
@@ -923,10 +871,6 @@
     </div>
 
 
-    <!-- =========================
-         REFERRAL AREA
-    ========================= -->
-
     <div id="referralArea">
 
       <div class="loading">
@@ -935,10 +879,6 @@
 
     </div>
 
-
-    <!-- =========================
-         STATS
-    ========================= -->
 
     <div class="card">
 
@@ -998,10 +938,6 @@
 
     </div>
 
-
-    <!-- =========================
-         REFERRED USERS
-    ========================= -->
 
     <div class="card">
 
@@ -1063,9 +999,13 @@
 
       try {
 
-        const meResponse =
+        /* =========================
+           GET REFERRAL CODE + COUNT
+        ========================= */
+
+        const referralResponse =
           await fetch(
-            "/api/me",
+            "/api/referral",
             {
               credentials: "include",
               cache: "no-store"
@@ -1074,7 +1014,7 @@
 
 
         if (
-          meResponse.status === 401
+          referralResponse.status === 401
         ) {
 
           window.location.href =
@@ -1085,35 +1025,61 @@
         }
 
 
-        if (!meResponse.ok) {
+        const referralData =
+          await referralResponse.json();
+
+
+        if (
+          !referralResponse.ok ||
+          !referralData.success
+        ) {
 
           throw new Error(
-            "Unable to load account."
+            referralData.message ||
+            "Unable to load referral."
           );
 
         }
 
 
-        const meData =
-          await meResponse.json();
-
-
-        const user =
-          meData.user ||
-          meData;
-
-
-        const referralCode =
-          user.referral_code ||
-          user.referralCode ||
-          "";
-
-
         currentReferralCode =
-          referralCode;
+          referralData.referral_code || "";
 
 
-        if (!referralCode) {
+        const total =
+          Number(
+            referralData.referral_count || 0
+          );
+
+
+        /* =========================
+           UPDATE STATS
+        ========================= */
+
+        document.getElementById(
+          "totalReferrals"
+        ).textContent =
+          total;
+
+
+        /*
+          Server currently returns the
+          referral count. Therefore the
+          active count follows the same
+          tracked referral total.
+        */
+
+        document.getElementById(
+          "activeReferrals"
+        ).textContent =
+          total;
+
+
+        /* =========================
+           REFERRAL CODE + LINK
+        ========================= */
+
+        if (!currentReferralCode) {
 
           referralArea.innerHTML = `
             <div class="error">
@@ -1127,13 +1093,11 @@
             window.location.origin +
             "/register.html?ref=" +
             encodeURIComponent(
-              referralCode
+              currentReferralCode
             );
 
 
           referralArea.innerHTML = `
-
-            <!-- REFERRAL CODE -->
 
             <div class="card">
 
@@ -1163,7 +1127,7 @@
 
                 <div class="code">
                   ${escapeHtml(
-                    referralCode
+                    currentReferralCode
                   )}
                 </div>
 
@@ -1184,8 +1148,6 @@
 
             </div>
 
-
-            <!-- REFERRAL LINK -->
 
             <div class="card">
 
@@ -1293,19 +1255,6 @@
 
 
         if (
-          response.status === 404
-        ) {
-
-          showEmptyReferrals(
-            "No referral data available yet."
-          );
-
-          return;
-
-        }
-
-
-        if (
           response.status === 401
         ) {
 
@@ -1321,7 +1270,10 @@
           await response.json();
 
 
-        if (!response.ok) {
+        if (
+          !response.ok ||
+          !data.success
+        ) {
 
           throw new Error(
             data.message ||
@@ -1332,16 +1284,11 @@
 
 
         const users =
-          Array.isArray(data)
-            ? data
-            : (
-                data.referrals ||
-                data.users ||
-                []
-              );
-
-
-        updateStats(users);
+          Array.isArray(
+            data.referrals
+          )
+            ? data.referrals
+            : [];
 
 
         if (
@@ -1366,14 +1313,11 @@
 
             const name =
               user.name ||
-              user.full_name ||
               "User";
 
 
             const mobile =
-              user.mobile ||
               user.phone ||
-              user.phone_number ||
               "-";
 
 
@@ -1441,49 +1385,6 @@
         );
 
       }
-
-    }
-
-
-    /* =========================
-       STATS
-    ========================= */
-
-    function updateStats(users) {
-
-      const total =
-        users.length;
-
-
-      const active =
-        users.filter(
-          user => {
-
-            const status =
-              String(
-                user.status || ""
-              ).toLowerCase();
-
-
-            return (
-              status === "active" ||
-              status === "approved"
-            );
-
-          }
-        ).length;
-
-
-      document.getElementById(
-        "totalReferrals"
-      ).textContent =
-        total;
-
-
-      document.getElementById(
-        "activeReferrals"
-      ).textContent =
-        active;
 
     }
 

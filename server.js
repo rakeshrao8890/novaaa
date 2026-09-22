@@ -1044,11 +1044,13 @@ app.post(
         );
 
       const referral =
-        String(
-          req.body.referral ||
-          req.body.referral_code ||
-          ''
-        ).trim();
+  String(
+    req.body.referral ||
+    req.body.referral_code ||
+    ''
+  )
+    .trim()
+    .toUpperCase();
 
       if (!phone) {
         return res.status(400).json({
@@ -1120,23 +1122,14 @@ app.post(
           salt
         );
 
-      const user =
-        await User.create({
-          name,
-
-          phone,
-
-          salt,
-
-          password_hash:
-            passwordHash,
-
-          referral_code:
-            referralCode,
-
-          referred_by:
-            referral || null
-        });
+      const user = await User.create({
+  name,
+  phone,
+  salt,
+  password_hash: passwordHash,
+  referral_code: referralCode,
+  referred_by: referral || null
+});
 
       await ensureWallet(
         user._id
@@ -1337,24 +1330,50 @@ app.get(
   login,
   async (req, res) => {
     try {
+      const referralCode =
+        String(
+          req.user.referral_code || ''
+        )
+          .trim()
+          .toUpperCase();
+
       const referrals =
         await User.countDocuments({
-          referred_by:
-            req.user.referral_code
+          $expr: {
+            $eq: [
+              {
+                $toUpper: {
+                  $ifNull: [
+                    '$referred_by',
+                    ''
+                  ]
+                }
+              },
+              referralCode
+            ]
+          }
         });
 
       res.json({
         success: true,
 
         referral_code:
-          req.user.referral_code,
+          referralCode,
 
         referral_count:
           referrals
       });
+
     } catch (error) {
+
+      console.error(
+        'Referral count error:',
+        error
+      );
+
       res.status(500).json({
         success: false,
+
         message:
           'Unable to load referral.'
       });
@@ -1367,10 +1386,28 @@ app.get(
   login,
   async (req, res) => {
     try {
+      const referralCode =
+        String(
+          req.user.referral_code || ''
+        )
+          .trim()
+          .toUpperCase();
+
       const users =
         await User.find({
-          referred_by:
-            req.user.referral_code
+          $expr: {
+            $eq: [
+              {
+                $toUpper: {
+                  $ifNull: [
+                    '$referred_by',
+                    ''
+                  ]
+                }
+              },
+              referralCode
+            ]
+          }
         })
         .select(
           'name phone created_at'
@@ -1382,11 +1419,21 @@ app.get(
 
       res.json({
         success: true,
-        referrals: users
+
+        referrals:
+          users
       });
+
     } catch (error) {
+
+      console.error(
+        'Referral users error:',
+        error
+      );
+
       res.status(500).json({
         success: false,
+
         message:
           'Unable to load referrals.'
       });
